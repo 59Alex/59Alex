@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="490" viewBox="0 0 1280 490" role="img" aria-labelledby="title desc">
+<title id="title">Aleksandr Kashevarov - Java Full Stack Engineer</title>
+<desc id="desc">Надёжные распределённые высоконагруженные системы. Кран собирает дом: инфраструктура; Kafka, Redis, PostgreSQL и WebRTC; Java, Spring и Debezium; TypeScript, React, Vite, Next.js и Node.js.</desc>
+<defs><clipPath id="frame"><rect width="1280" height="490" rx="12"/></clipPath></defs>
+<style>.block{opacity:1}.rig,.sling{display:none}</style>
+<g clip-path="url(#frame)">
+<rect width="1280" height="490" fill="#F4F0FA"/>
+<path d="M32 60H1248" stroke="#B7A0CB" opacity=".35"/>
+<text x="32" y="37" fill="#716180" font-family="Arial, Helvetica, sans-serif" font-size="15">Aleksandr Kashevarov - Java Full Stack Engineer</text>
+<text fill="#29143E" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="600" letter-spacing="-1.4"><tspan x="32" y="156">Надёжные</tspan><tspan x="32" y="215">распределённые</tspan><tspan x="32" y="274">высоконагруженные</tspan><tspan x="32" y="333">системы</tspan></text>
+<path d="M32 361h42" stroke="#8050AC" stroke-width="2"/>
+<g transform="translate(656 73)"><g fill="none" stroke="#B7A0CB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 380h544 M40 376V35h22v341 M22 376h58 M22 35h530v14H22z M40 35L54 8l9 27 M54 8l-32 27 M54 8l476 27"/>
+<path d="M40 75l22-26M40 49l22 26M40 115l22-40M40 75l22 40M40 155l22-40M40 115l22 40M40 195l22-40M40 155l22 40M40 235l22-40M40 195l22 40M40 275l22-40M40 235l22 40M40 315l22-40M40 275l22 40M40 355l22-40M40 315l22 40"/>
+<path d="M80 35l20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14"/>
+<rect x="10" y="52" width="25" height="20" rx="2" fill="#E8DEF1"/>
+</g><g class="rig rig-0" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-0" d="M350 42V304"/></g><g class="rig rig-1" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-1" d="M350 42V234"/></g><g class="rig rig-2" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-2" d="M350 42V167"/></g><g class="rig rig-3" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-3" d="M350 42V84"/></g><g class="block block-0"><g class="sling sling-0" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M248 320L350 304L462 320"/></g><rect x="178" y="320" width="354" height="52" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M178 367h354" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="336" text-anchor="middle" fill="#716180" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">ИНФРАСТРУКТУРА</text><text x="350" y="357" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="18">Docker · Kubernetes · CI/CD</text></g><g class="block block-1"><g class="sling sling-1" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M260 250L350 234L450 250"/></g><rect x="190" y="250" width="330" height="64" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M190 309h330" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="266" text-anchor="middle" fill="#716180" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">ДАННЫЕ И КОММУНИКАЦИИ</text><text x="350" y="287" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="18">Kafka · Redis · PostgreSQL</text><text x="350" y="305" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="18">WebRTC · SSE</text></g><g class="block block-2"><g class="sling sling-2" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M260 183L350 167L450 183"/></g><rect x="190" y="183" width="330" height="61" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M190 239h330" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="199" text-anchor="middle" fill="#716180" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">СЕРВЕР</text><text x="350" y="220" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="18">Java · Spring · Debezium</text></g><g class="block block-3"><g class="sling sling-3" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M300 123L350 84L400 123"/></g>
+<path d="M178 175L350 100L532 175Z" fill="#E8DEF1" stroke="#B7A0CB" stroke-linejoin="round"/>
+<path d="M190 175h330" stroke="#8050AC" stroke-width="2"/>
+<text x="350" y="143" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="18">TS · React · Vite</text>
+<text x="350" y="164" text-anchor="middle" fill="#29143E" font-family="Arial, sans-serif" font-size="17">Next.js · Node.js</text>
+</g></g>
+</g></svg>

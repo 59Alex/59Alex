@@ -54,7 +54,7 @@ def scene(c):
     return result
 
 
-def header(dark, mobile):
+def header(dark, mobile, static=False):
     bg, ink, muted, line, panel, accent = (
         ('#0D0918', '#F3EDFF', '#ADA0C6', '#594074', '#21132F', '#BB8DF2') if dark else
         ('#F4F0FA', '#29143E', '#716180', '#B7A0CB', '#E8DEF1', '#8050AC')
@@ -69,7 +69,7 @@ def header(dark, mobile):
 <title id="title">Aleksandr Kashevarov - Java Full Stack Engineer</title>
 <desc id="desc">Надёжные распределённые высоконагруженные системы. Кран собирает дом: инфраструктура; Kafka, Redis, PostgreSQL и WebRTC; Java, Spring и Debezium; TypeScript, React, Vite, Next.js и Node.js.</desc>
 <defs><clipPath id="frame"><rect width="{width}" height="{height}" rx="12"/></clipPath></defs>
-<style>{motion_css()}</style>
+<style>{".block{opacity:1}.rig,.sling{display:none}" if static else motion_css()}</style>
 <g clip-path="url(#frame)">
 <rect width="{width}" height="{height}" fill="{bg}"/>
 <path d="M32 60H{width-32}" stroke="{line}" opacity=".35"/>
@@ -84,6 +84,7 @@ for dark in (False, True):
     theme = 'dark' if dark else 'light'
     for mobile in (False, True):
         (ASSETS / f'header-{"mobile-" if mobile else ""}{theme}.svg').write_text(header(dark, mobile))
+        (ASSETS / f'header-static-{"mobile-" if mobile else ""}{theme}.svg').write_text(header(dark, mobile, static=True))
     for lang in ('ru', 'en'):
         bg, ink, line = ('#1A1423','#C6B7D8','#463553') if dark else ('#F6F3FA','#63516F','#D3C7DF')
         # Adjacent halves form one quiet horizontal control; state belongs to native details.
