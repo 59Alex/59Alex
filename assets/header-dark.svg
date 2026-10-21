@@ -1,41 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
-<title id="title">59Alex · Java Full Stack</title>
-<desc id="desc">Java and Spring services, React and TypeScript interfaces, Kafka event streams. From interaction to transaction.</desc>
-<defs>
- <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#2C4340"/></pattern>
- <linearGradient id="wash" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#0B141A"/><stop offset="1" stop-color="#122421"/></linearGradient>
- <clipPath id="frame"><rect width="1200" height="420" rx="20"/></clipPath>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="490" viewBox="0 0 1280 490" role="img" aria-labelledby="title desc">
+<title id="title">Aleksandr Kashevarov - Java Full Stack Engineer</title>
+<desc id="desc">Надёжные распределённые высоконагруженные системы. Кран собирает дом: инфраструктура; Kafka, Redis, PostgreSQL и WebRTC; Java, Spring и Debezium; TypeScript, React, Vite, Next.js и Node.js.</desc>
+<defs><clipPath id="frame"><rect width="1280" height="490" rx="12"/></clipPath></defs>
+<style>.block{opacity:0}.rig,.sling{opacity:0}
+
+.block-0{animation:block0 24s ease-in-out infinite}
+.rig-0{animation:rig0 24s ease-in-out infinite}
+.wire-0{transform-origin:350px 42px;animation:wire0 24s ease-in-out infinite}
+.sling-0{animation:sling0 24s ease-in-out infinite}
+@keyframes block0{0%,0%{opacity:0;transform:translate(140px,-230px)}1%{opacity:1;transform:translate(140px,-230px)}5%{opacity:1;transform:translate(0,-230px)}13%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig0{0%,0%{opacity:0;transform:translateX(140px)}1%{opacity:1;transform:translateX(140px)}5%,13%{opacity:1;transform:translateX(0)}14%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire0{0%,5%{transform:scaleY(0.1221)}13%,100%{transform:scaleY(1)}}
+@keyframes sling0{0%,0%{opacity:0}1%,12%{opacity:1}14%,100%{opacity:0}}
+
+
+.block-1{animation:block1 24s ease-in-out infinite}
+.rig-1{animation:rig1 24s ease-in-out infinite}
+.wire-1{transform-origin:350px 42px;animation:wire1 24s ease-in-out infinite}
+.sling-1{animation:sling1 24s ease-in-out infinite}
+@keyframes block1{0%,18%{opacity:0;transform:translate(140px,-160px)}19%{opacity:1;transform:translate(140px,-160px)}23%{opacity:1;transform:translate(0,-160px)}31%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig1{0%,18%{opacity:0;transform:translateX(140px)}19%{opacity:1;transform:translateX(140px)}23%,31%{opacity:1;transform:translateX(0)}32%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire1{0%,23%{transform:scaleY(0.1667)}31%,100%{transform:scaleY(1)}}
+@keyframes sling1{0%,18%{opacity:0}19%,30%{opacity:1}32%,100%{opacity:0}}
+
+
+.block-2{animation:block2 24s ease-in-out infinite}
+.rig-2{animation:rig2 24s ease-in-out infinite}
+.wire-2{transform-origin:350px 42px;animation:wire2 24s ease-in-out infinite}
+.sling-2{animation:sling2 24s ease-in-out infinite}
+@keyframes block2{0%,36%{opacity:0;transform:translate(140px,-93px)}37%{opacity:1;transform:translate(140px,-93px)}41%{opacity:1;transform:translate(0,-93px)}49%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig2{0%,36%{opacity:0;transform:translateX(140px)}37%{opacity:1;transform:translateX(140px)}41%,49%{opacity:1;transform:translateX(0)}50%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire2{0%,41%{transform:scaleY(0.2560)}49%,100%{transform:scaleY(1)}}
+@keyframes sling2{0%,36%{opacity:0}37%,48%{opacity:1}50%,100%{opacity:0}}
+
+
+.block-3{animation:block3 24s ease-in-out infinite}
+.rig-3{animation:rig3 24s ease-in-out infinite}
+.wire-3{transform-origin:350px 42px;animation:wire3 24s ease-in-out infinite}
+.sling-3{animation:sling3 24s ease-in-out infinite}
+@keyframes block3{0%,54%{opacity:0;transform:translate(140px,-26px)}55%{opacity:1;transform:translate(140px,-26px)}59%{opacity:1;transform:translate(0,-26px)}67%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig3{0%,54%{opacity:0;transform:translateX(140px)}55%{opacity:1;transform:translateX(140px)}59%,67%{opacity:1;transform:translateX(0)}68%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire3{0%,59%{transform:scaleY(0.3810)}67%,100%{transform:scaleY(1)}}
+@keyframes sling3{0%,54%{opacity:0}55%,66%{opacity:1}68%,100%{opacity:0}}
+
+@media(prefers-reduced-motion:reduce){.block{animation:none;opacity:1;transform:none}.rig,.sling{animation:none;opacity:0}.wire{animation:none}}</style>
 <g clip-path="url(#frame)">
- <rect width="1200" height="420" fill="url(#wash)"/>
- <rect x="636.0" width="564.0" height="420" fill="url(#dots)" opacity=".55"/>
- <path d="M42 38h18" stroke="#67E8BD" stroke-width="4"/>
- <text x="72" y="43" fill="#A8BDB7" font-family="monospace" font-size="14" letter-spacing="2">59ALEX / ENGINEERING</text>
- <text x="39" y="188" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="130" letter-spacing="-5">JAVA<tspan fill="#67E8BD">.</tspan></text>
- <text x="40" y="280" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="90" letter-spacing="-3">FULL STACK</text>
-<text x="1158" y="43" text-anchor="end" fill="#A8BDB7" font-family="monospace" font-size="12" letter-spacing="2">SOFTWARE / SYSTEMS / OPEN SOURCE</text>
-<path d="M720 122v170h40" fill="none" stroke="#67E8BD" stroke-width="2"/>
-<circle cx="720" cy="122" r="4" fill="#67E8BD"/>
-<rect x="798" y="84" width="328" height="72" rx="12" fill="#0B141A" opacity=".4"/>
-<rect x="794" y="79" width="328" height="72" rx="12" fill="#122421" stroke="#2C4340"/>
-<text x="812" y="106" fill="#67E8BD" font-family="monospace" font-size="13">01</text>
-<text x="850" y="104" fill="#A8BDB7" font-family="monospace" font-size="11" letter-spacing="1.6">INTERFACE</text>
-<text x="850" y="130" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600">React / TypeScript</text>
-<path d="M1094 109l6 6-6 6" fill="none" stroke="#67E8BD" stroke-width="2"/>
-<rect x="760" y="167" width="328" height="72" rx="12" fill="#0B141A" opacity=".4"/>
-<rect x="756" y="162" width="328" height="72" rx="12" fill="#122421" stroke="#2C4340"/>
-<text x="774" y="189" fill="#67E8BD" font-family="monospace" font-size="13">02</text>
-<text x="812" y="187" fill="#A8BDB7" font-family="monospace" font-size="11" letter-spacing="1.6">SERVICES</text>
-<text x="812" y="213" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600">Java / Spring</text>
-<path d="M1056 192l6 6-6 6" fill="none" stroke="#67E8BD" stroke-width="2"/>
-<rect x="798" y="250" width="328" height="72" rx="12" fill="#0B141A" opacity=".4"/>
-<rect x="794" y="245" width="328" height="72" rx="12" fill="#122421" stroke="#2C4340"/>
-<text x="812" y="272" fill="#67E8BD" font-family="monospace" font-size="13">03</text>
-<text x="850" y="270" fill="#A8BDB7" font-family="monospace" font-size="11" letter-spacing="1.6">EVENT STREAMS</text>
-<text x="850" y="296" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600">Kafka / Streaming</text>
-<path d="M1094 275l6 6-6 6" fill="none" stroke="#67E8BD" stroke-width="2"/>
-<path d="M42 341h1116" stroke="#2C4340"/>
-<path d="M42 378h26m-6-6 6 6-6 6" fill="none" stroke="#67E8BD" stroke-width="2"/>
-<text x="84" y="384" fill="#F2F6F4" font-family="Arial, Helvetica, sans-serif" font-size="23">From interaction to transaction.</text>
-<text x="1158" y="382" text-anchor="end" fill="#A8BDB7" font-family="monospace" font-size="13" letter-spacing="1">STREAMING / REAL-TIME SYSTEMS</text>
+<rect width="1280" height="490" fill="#0D0918"/>
+<path d="M32 60H1248" stroke="#594074" opacity=".35"/>
+<text x="32" y="37" fill="#ADA0C6" font-family="Arial, Helvetica, sans-serif" font-size="15">Aleksandr Kashevarov - Java Full Stack Engineer</text>
+<text fill="#F3EDFF" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="600" letter-spacing="-1.4"><tspan x="32" y="156">Надёжные</tspan><tspan x="32" y="215">распределённые</tspan><tspan x="32" y="274">высоконагруженные</tspan><tspan x="32" y="333">системы</tspan></text>
+<path d="M32 361h42" stroke="#BB8DF2" stroke-width="2"/>
+<g transform="translate(656 73)"><g fill="none" stroke="#594074" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 380h544 M40 376V35h22v341 M22 376h58 M22 35h530v14H22z M40 35L54 8l9 27 M54 8l-32 27 M54 8l476 27"/>
+<path d="M40 75l22-26M40 49l22 26M40 115l22-40M40 75l22 40M40 155l22-40M40 115l22 40M40 195l22-40M40 155l22 40M40 235l22-40M40 195l22 40M40 275l22-40M40 235l22 40M40 315l22-40M40 275l22 40M40 355l22-40M40 315l22 40"/>
+<path d="M80 35l20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14 20-14 20 14"/>
+<rect x="10" y="52" width="25" height="20" rx="2" fill="#21132F"/>
+</g><g class="rig rig-0" fill="none" stroke="#BB8DF2" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#21132F"/><path class="wire wire-0" d="M350 42V304"/></g><g class="rig rig-1" fill="none" stroke="#BB8DF2" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#21132F"/><path class="wire wire-1" d="M350 42V234"/></g><g class="rig rig-2" fill="none" stroke="#BB8DF2" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#21132F"/><path class="wire wire-2" d="M350 42V167"/></g><g class="rig rig-3" fill="none" stroke="#BB8DF2" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#21132F"/><path class="wire wire-3" d="M350 42V84"/></g><g class="block block-0"><g class="sling sling-0" fill="none" stroke="#BB8DF2" stroke-width="1.2"><path d="M248 320L350 304L462 320"/></g><rect x="178" y="320" width="354" height="52" rx="4" fill="#21132F" stroke="#594074"/><path d="M178 367h354" stroke="#BB8DF2" opacity=".3"/>
+<text x="350" y="336" text-anchor="middle" fill="#ADA0C6" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">ИНФРАСТРУКТУРА</text><text x="350" y="357" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="18">Docker · Kubernetes · CI/CD</text></g><g class="block block-1"><g class="sling sling-1" fill="none" stroke="#BB8DF2" stroke-width="1.2"><path d="M260 250L350 234L450 250"/></g><rect x="190" y="250" width="330" height="64" rx="4" fill="#21132F" stroke="#594074"/><path d="M190 309h330" stroke="#BB8DF2" opacity=".3"/>
+<text x="350" y="266" text-anchor="middle" fill="#ADA0C6" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">ДАННЫЕ И КОММУНИКАЦИИ</text><text x="350" y="287" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="18">Kafka · Redis · PostgreSQL</text><text x="350" y="305" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="18">WebRTC · SSE</text></g><g class="block block-2"><g class="sling sling-2" fill="none" stroke="#BB8DF2" stroke-width="1.2"><path d="M260 183L350 167L450 183"/></g><rect x="190" y="183" width="330" height="61" rx="4" fill="#21132F" stroke="#594074"/><path d="M190 239h330" stroke="#BB8DF2" opacity=".3"/>
+<text x="350" y="199" text-anchor="middle" fill="#ADA0C6" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.6">СЕРВЕР</text><text x="350" y="220" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="18">Java · Spring · Debezium</text></g><g class="block block-3"><g class="sling sling-3" fill="none" stroke="#BB8DF2" stroke-width="1.2"><path d="M300 123L350 84L400 123"/></g>
+<path d="M178 175L350 100L532 175Z" fill="#21132F" stroke="#594074" stroke-linejoin="round"/>
+<path d="M190 175h330" stroke="#BB8DF2" stroke-width="2"/>
+<text x="350" y="143" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="18">TS · React · Vite</text>
+<text x="350" y="164" text-anchor="middle" fill="#F3EDFF" font-family="Arial, sans-serif" font-size="17">Next.js · Node.js</text>
+</g></g>
 </g></svg>

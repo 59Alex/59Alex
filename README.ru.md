@@ -2,135 +2,57 @@
   <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="assets/header-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-  <img src="assets/header-light.svg" width="100%" alt="Java Full Stack — from browser to backend.">
+  <img src="assets/header-light.svg" width="100%" alt="Aleksandr Kashevarov - Java Full Stack Engineer. Надёжные распределённые высоконагруженные системы.">
 </picture>
 
-<details name="profile-language">
-<summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-dark.svg"><img src="assets/lang-en-light.svg" width="108" height="44" alt="English"></picture></summary>
-
-# Aleksandr Kashevarov
-
-**Java Full Stack Developer** · From the browser interaction to the backend transaction.
-
-I build Java services and React applications, with a particular interest in what happens between them: streaming files, delivering events, and keeping state consistent when connections fail.
-
-My work spans Spring APIs, Kafka pipelines, browser media, and containerized infrastructure. I'm now packaging reusable parts of that experience into open-source libraries.
-
-**[Explore the libraries ↓](#building-in-the-open)**
-
-<details open>
-<summary><b>The stack in motion</b> · click to show or hide</summary>
-<br>
-<a href="#what-i-work-with" title="Explore the technologies">
-<picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/tech-strip-mobile-dark.svg">
-  <source media="(max-width: 600px)" srcset="assets/tech-strip-mobile-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="assets/tech-strip-dark.svg">
-  <img src="assets/tech-strip-light.svg" width="100%" alt="Java, Spring, TypeScript, React, Kafka, PostgreSQL, Redis, Docker and Kubernetes. Select to explore the stack.">
-</picture>
-</a>
-</details>
-
-### What I work with
-
-**Backend**<br>
-[Java 21](https://dev.java/) · [Spring Boot](https://spring.io/projects/spring-boot) · [WebFlux](https://docs.spring.io/spring-framework/reference/web/webflux.html) · [Kafka](https://kafka.apache.org/) · [PostgreSQL](https://www.postgresql.org/) · [Redis](https://redis.io/)
-
-**Frontend**<br>
-[TypeScript](https://www.typescriptlang.org/) · [React](https://react.dev/) · [Vite](https://vite.dev/) · Browser Streams · Server-Sent Events · WebRTC
-
-**Infrastructure**<br>
-[Docker](https://www.docker.com/) · [Kubernetes](https://kubernetes.io/) · S3-compatible storage · OAuth2 / Keycloak · Observability
-
-### Building in the open
-
-Three libraries, each focused on a problem I've worked with in application code. **Early development:** the repositories currently contain implementation plans and release criteria.
-
-#### [browser-media-cache](https://github.com/59Alex/browser-media-cache)
-
-**TypeScript · Browser infrastructure**<br>
-One media resource, several UI components. Planned shared loading and explicit blob URL ownership keep cleanup predictable as components mount and disappear.
-
-#### [s3-file-streams](https://github.com/59Alex/s3-file-streams)
-
-**Java + TypeScript · Streaming**<br>
-One continuous stream from the browser through Java to S3, and back. Designed around bounded buffering, backpressure, cancellation, and the difference between bytes sent and an object committed.
-
-#### [browser-sse-relay](https://github.com/59Alex/browser-sse-relay)
-
-**TypeScript · Real-time delivery**<br>
-A reconnect is only the first step. Planned cursor replay and a resync contract address events missed while the client was offline.
-
----
-
-**How I approach engineering**<br>
-I care about where guarantees start, where they stop, and how to demonstrate both with a reproducible test.
-
-Have a use case for one of these libraries? Open an issue in its repository — concrete scenarios help shape the API.
-
-</details>
+<a href="#user-content-portfolio-ru" title="RU"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="42" height="26" alt="RU"></picture></a><a href="#user-content-portfolio-en" title="EN"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-dark.svg"><img src="assets/lang-en-light.svg" width="42" height="26" alt="EN"></picture></a>
 
 <details name="profile-language" open>
-<summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="108" height="44" alt="Русский"></picture></summary>
+<summary>О себе и проектах</summary>
+<a id="portfolio-ru"></a>
 
-# Александр Кашеваров
+Разрабатываю **cnnect**: Java-сервисы и React-интерфейс для общения, медиа и событий в реальном времени. Работаю с API, обработкой событий, хранением данных и доставкой изменений в браузер.
 
-**Java Full Stack разработчик** · От действия пользователя в браузере до транзакции на сервере.
+- **Backend:** Java, Spring Boot / WebFlux, Kafka, PostgreSQL, Redis. Транзакции, повторная доставка событий, восстановление соединений.
+- **Frontend:** TypeScript, React, Vite, WebRTC. Предзагрузка контента, общий медиакэш и управление временем жизни ресурсов.
+- **Инфраструктура:** Docker, Kubernetes, S3-совместимые хранилища, Keycloak и наблюдаемость. Node.js использую в инструментах разработки и тестах.
 
-Разрабатываю сервисы на Java и приложения на React. Особенно интересны задачи на их стыке: потоковая передача файлов, доставка событий и согласованность состояния при обрывах соединения.
+### Библиотеки
 
-Работаю со Spring API, потоками событий Kafka, медиа в браузере и контейнерной инфраструктурой. Сейчас выделяю переиспользуемые решения из своего опыта в открытые библиотеки.
+Выделяю повторяющиеся задачи из cnnect в самостоятельные проекты. Сейчас в этих репозиториях — описание контрактов и планы реализации; опубликованных пакетов ещё нет.
 
-**[Посмотреть библиотеки ↓](#открытые-библиотеки)**
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript<br>
+Один медиаресурс часто нужен нескольким компонентам. Библиотека для общей загрузки и владения Blob URL: закрытие одной карточки не должно ломать изображение в другой, а неиспользуемые ресурсы должны освобождаться.
 
-<details open>
-<summary><b>Технологии в движении</b> · нажми, чтобы скрыть или показать</summary>
-<br>
-<a href="#с-чем-работаю" title="Перейти к технологиям">
-<picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/tech-strip-mobile-dark.svg">
-  <source media="(max-width: 600px)" srcset="assets/tech-strip-mobile-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="assets/tech-strip-dark.svg">
-  <img src="assets/tech-strip-light.svg" width="100%" alt="Java, Spring, TypeScript, React, Kafka, PostgreSQL, Redis, Docker и Kubernetes. Нажми, чтобы перейти к стеку.">
-</picture>
-</a>
+**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript<br>
+Передача файлов единым потоком между браузером, Java и S3. Цель — обойтись без накопления целого файла в памяти, учитывать скорость получателя и корректно отменять незавершённую передачу.
+
+**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript<br>
+Восстановление событий после потери связи: продолжить чтение с последнего обработанного курсора, затем перейти к live-потоку. Если история уже недоступна — явно запросить синхронизацию состояния.
+
 </details>
 
-### С чем работаю
+<details name="profile-language">
+<summary>About & projects</summary>
+<a id="portfolio-en"></a>
 
-**Серверная часть**<br>
-[Java 21](https://dev.java/) · [Spring Boot](https://spring.io/projects/spring-boot) · [WebFlux](https://docs.spring.io/spring-framework/reference/web/webflux.html) · [Kafka](https://kafka.apache.org/) · [PostgreSQL](https://www.postgresql.org/) · [Redis](https://redis.io/)
+I develop **cnnect**, a set of Java services and a React interface for communication, media and real-time events. My work covers APIs, event processing, data storage and delivering updates to the browser.
 
-**Клиентская часть**<br>
-[TypeScript](https://www.typescriptlang.org/) · [React](https://react.dev/) · [Vite](https://vite.dev/) · Browser Streams · Server-Sent Events · WebRTC
+- **Backend:** Java, Spring Boot / WebFlux, Kafka, PostgreSQL and Redis. Transactions, event redelivery and connection recovery.
+- **Frontend:** TypeScript, React, Vite and WebRTC. Content prefetching, shared media caching and resource lifecycles.
+- **Infrastructure:** Docker, Kubernetes, S3-compatible storage, Keycloak and observability. I use Node.js for development tooling and tests.
 
-**Инфраструктура**<br>
-[Docker](https://www.docker.com/) · [Kubernetes](https://kubernetes.io/) · S3-совместимые хранилища · OAuth2 / Keycloak · Наблюдаемость
+### Libraries
 
-### Открытые библиотеки
+I am extracting recurring problems from cnnect into independent projects. These repositories currently contain contracts and implementation plans; packages have not been released yet.
 
-Три библиотеки для задач, с которыми я работал в прикладном коде. **Ранняя стадия разработки:** сейчас в репозиториях находятся планы реализации и критерии готовности релизов.
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript<br>
+Several components often need the same media resource. Shared loading and Blob URL ownership should let one card disappear without breaking another, and release resources when they are no longer needed.
 
-#### [browser-media-cache](https://github.com/59Alex/browser-media-cache)
+**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript<br>
+Continuous file transfer between the browser, Java and S3. The goal is to avoid collecting an entire file in memory, respect the receiver's speed and cancel unfinished transfers correctly.
 
-**TypeScript · Инфраструктура браузера**<br>
-Один медиаресурс — несколько компонентов интерфейса. Планирую общую загрузку и явное управление временем жизни blob URL, чтобы появление и удаление компонентов не приводили к утечкам или преждевременной очистке ресурса.
-
-#### [s3-file-streams](https://github.com/59Alex/s3-file-streams)
-
-**Java + TypeScript · Потоковая передача**<br>
-Единый непрерывный поток из браузера через Java в S3 и обратно. В основе проекта — ограниченное потребление памяти, backpressure, отмена операции и чёткое различие между отправленными байтами и сохранённым объектом.
-
-#### [browser-sse-relay](https://github.com/59Alex/browser-sse-relay)
-
-**TypeScript · Доставка событий в реальном времени**<br>
-Переподключение — только первый шаг. Планирую повторную доставку по курсору и протокол повторной синхронизации для событий, пропущенных клиентом за время отсутствия связи.
-
----
-
-**Мой подход к разработке**<br>
-Мне важно понимать, при каких условиях система даёт гарантии, где они заканчиваются и как проверить это воспроизводимым тестом.
-
-Есть задача для одной из библиотек? Создай issue в её репозитории — конкретные сценарии помогают спроектировать полезный API.
+**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript<br>
+Recover events after a disconnect: resume from the last processed cursor, then switch to the live stream. If retained history is no longer available, explicitly request a state resync.
 
 </details>
