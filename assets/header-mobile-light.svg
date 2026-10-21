@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="294" viewBox="0 0 480 294" role="img" aria-labelledby="title desc">
+<title id="title">Java Full Stack</title><desc id="desc">59Alex. From browser to backend. A browser, services and storage connected as one system.</desc>
+<rect width="480" height="294" rx="12" fill="#EEF4F5"/>
+  <path d="M32 28h24" stroke="#087E71" stroke-width="4"/>
+  <text x="68" y="34" fill="#526D7B" font-family="monospace" font-size="13" letter-spacing="2">59ALEX / ENGINEERING</text>
+  <text x="30" y="116" fill="#102D3C" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800" letter-spacing="-3">JAVA</text>
+  <text x="30" y="188" fill="#102D3C" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800" letter-spacing="-3">FULL STACK<tspan fill="#087E71">.</tspan></text>
+  <path d="M32 216h416" stroke="#B8CCD3"/>
+  <text x="32" y="246" fill="#526D7B" font-family="monospace" font-size="14">FROM BROWSER TO BACKEND</text>
+</svg>
