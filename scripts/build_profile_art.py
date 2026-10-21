@@ -5,6 +5,10 @@ from math import cos, sin, pi
 
 ASSETS = Path(__file__).resolve().parents[1] / 'assets'
 
+CRANE_END = 560
+PICKUP_X = CRANE_END - 8  # Keep the trolley fully inside the end of the boom.
+PICKUP_OFFSET = PICKUP_X - 350
+
 
 def motion_css():
     rules = ['.block,.rig,.sling{opacity:0}']
@@ -15,8 +19,8 @@ def motion_css():
 .rig-{i}{{animation:rig{i} 28s ease-in-out infinite}}
 .wire-{i}{{transform-origin:350px 42px;animation:wire{i} 28s ease-in-out infinite}}
 .sling-{i}{{animation:sling{i} 28s ease-in-out infinite}}
-@keyframes block{i}{{0%,{start}%{{opacity:0;transform:translate(240px,{dy}px)}}{start+1}%{{opacity:1;transform:translate(240px,{dy}px)}}{start+5}%{{opacity:1;transform:translate(0,{dy}px)}}{start+13}%,92%{{opacity:1;transform:translate(0,0)}}97%,100%{{opacity:0;transform:translate(0,0)}}}}
-@keyframes rig{i}{{0%,{start}%{{opacity:0;transform:translateX(240px)}}{start+1}%{{opacity:1;transform:translateX(240px)}}{start+5}%,{start+13}%{{opacity:1;transform:translateX(0)}}{start+14}%,100%{{opacity:0;transform:translateX(0)}}}}
+@keyframes block{i}{{0%,{start}%{{opacity:0;transform:translate({PICKUP_OFFSET}px,{dy}px)}}{start+1}%{{opacity:1;transform:translate({PICKUP_OFFSET}px,{dy}px)}}{start+5}%{{opacity:1;transform:translate(0,{dy}px)}}{start+13}%,92%{{opacity:1;transform:translate(0,0)}}97%,100%{{opacity:0;transform:translate(0,0)}}}}
+@keyframes rig{i}{{0%,{start}%{{opacity:0;transform:translateX({PICKUP_OFFSET}px)}}{start+1}%{{opacity:1;transform:translateX({PICKUP_OFFSET}px)}}{start+5}%,{start+13}%{{opacity:1;transform:translateX(0)}}{start+14}%,100%{{opacity:0;transform:translateX(0)}}}}
 @keyframes wire{i}{{0%,{start+5}%{{transform:scaleY({small:.4f})}}{start+13}%,100%{{transform:scaleY(1)}}}}
 @keyframes sling{i}{{0%,{start}%{{opacity:0}}{start+1}%,{start+12}%{{opacity:1}}{start+14}%,100%{{opacity:0}}}}
 ''')
@@ -35,12 +39,12 @@ def motion_css():
 def scene(c, lang):
     ink, muted, line, fill, accent = c
     result = f'''<g fill="none" stroke="{line}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-<path d="M16 426h552 M40 420V35h22v385 M22 420h58 M22 35h590v14H22z M40 35L54 8l9 27 M54 8l-32 27 M54 8l536 27"/>
+<path d="M16 426h552 M40 420V35h22v385 M22 420h58 M22 35H{CRANE_END}v14H22z M40 35L54 8l9 27 M54 8l-32 27 M54 8L{CRANE_END} 35"/>
 <rect x="10" y="52" width="25" height="20" rx="2" fill="{fill}"/>
 '''
     for y in range(49, 410, 40):
         result += f'<path d="M40 {y}l22 {min(40, 420-y)}M40 {min(y+40, 420)}l22-{min(40, 420-y)}"/>'
-    for x in range(80, 580, 40):
+    for x in range(80, CRANE_END-39, 40):
         result += f'<path d="M{x} 35l20 14 20-14"/>'
     result += '</g>'
     for i, anchor in enumerate([340, 260, 178, 80]):
@@ -78,6 +82,12 @@ def gear(x, y, radius, teeth, seconds, reverse, c):
 <polygon points="{' '.join(points)}" fill="{fill}"/><circle r="{radius-10}"/>{spokes}<circle r="10" fill="{fill}"/></g><circle r="4" fill="{accent}"/><circle r="1.5" fill="{ink}"/></g>'''
 
 
+def fitted_assembly(x, content):
+    """Inset complete mechanical parts; preserve their alignment and circular motion."""
+    center = 105 if x < 195 else 281 if x < 365 else 456
+    return f'<g transform="translate({center} 88) scale(.78) translate({-center} -88)">{content}</g>'
+
+
 def clockwork(c):
     ink, muted, line, fill, accent = c
     result = f'''<g fill="none" stroke="{line}" stroke-width="1.2">
@@ -100,20 +110,21 @@ def clockwork(c):
     ]
     for train in trains:
         for args in train:
-            result += gear(*args, c)
+            result += fitted_assembly(args[0], gear(*args, c))
     # Barrels, etched scales, bridges and jewel bearings keep the watch metaphor legible.
     for x,y,r in [(80,110,42),(275,100,38),(447,98,40)]:
-        result += f'''<g transform="translate({x} {y})" fill="none" stroke="{muted}" stroke-width=".7">
+        result += fitted_assembly(x, f'''<g transform="translate({x} {y})" fill="none" stroke="{muted}" stroke-width=".7">
 <circle r="{r-16}"/><circle r="{r-20}" stroke-dasharray="1 3"/><path d="M-14 0C-14-19 17-20 20 0S-19 27-25 4"/>
-</g>'''
-    for path in ['M48 135L80 110L116 46L148 26', 'M235 136L275 100L330 67', 'M402 137L447 98L494 52L516 30']:
-        result += f'<path d="{path}" fill="none" stroke="{line}" stroke-width="8" stroke-linecap="round"/><path d="{path}" fill="none" stroke="{muted}" stroke-width=".7"/>'
+</g>''')
+    for x, path in [(80, 'M48 135L80 110L116 46L148 26'), (275, 'M235 136L275 100L330 67'), (447, 'M402 137L447 98L494 52L516 30')]:
+        result += fitted_assembly(x, f'<path d="{path}" fill="none" stroke="{line}" stroke-width="8" stroke-linecap="round"/><path d="{path}" fill="none" stroke="{muted}" stroke-width=".7"/>')
     for i,(x,y) in enumerate([(80,110),(275,100),(447,98)]):
-        result += f'<circle cx="{x}" cy="{y}" r="6" fill="{fill}" stroke="{accent}"/><circle cx="{x}" cy="{y}" r="2" fill="{ink}"/><text x="{[40,220,387][i]}" y="153" fill="{muted}" font-size="9" letter-spacing="2">0{i+1}</text>'
+        result += fitted_assembly(x, f'<circle cx="{x}" cy="{y}" r="6" fill="{fill}" stroke="{accent}"/><circle cx="{x}" cy="{y}" r="2" fill="{ink}"/>')
+        result += f'<text x="{[40,220,387][i]}" y="153" fill="{muted}" font-size="9" letter-spacing="2">0{i+1}</text>'
     for x,y in [(116,46),(132,84),(162,35),(229,62),(263,32),(330,67),(395,67),(417,28),(494,52),(48,135),(235,136),(402,137)]:
-        result += f'<circle cx="{x}" cy="{y}" r="3" fill="{fill}" stroke="{accent}"/><path d="M{x-1.5} {y+1.5}l3-3" stroke="{muted}" stroke-width=".7"/>'
+        result += fitted_assembly(x, f'<circle cx="{x}" cy="{y}" r="3" fill="{fill}" stroke="{accent}"/><path d="M{x-1.5} {y+1.5}l3-3" stroke="{muted}" stroke-width=".7"/>')
     for x,y in [(162,126),(324,127),(510,126)]:
-        result += f'''<g transform="translate({x} {y})" stroke="{accent}" fill="none"><circle r="17" stroke="{line}"/><g class="balance"><circle r="12"/><path d="M-12 0h24M0-12v24"/><circle r="7" stroke-dasharray="1 2"/></g><circle r="2" fill="{accent}"/></g>'''
+        result += fitted_assembly(x, f'''<g transform="translate({x} {y})" stroke="{accent}" fill="none"><circle r="17" stroke="{line}"/><g class="balance"><circle r="12"/><path d="M-12 0h24M0-12v24"/><circle r="7" stroke-dasharray="1 2"/></g><circle r="2" fill="{accent}"/></g>''')
     return result
 
 
@@ -139,7 +150,7 @@ def header(dark, mobile, static=False, lang='ru'):
 <g clip-path="url(#frame)" font-family="Arial, Helvetica, sans-serif">
 <rect width="{width}" height="{height}" fill="{bg}"/>
 <path d="M32 {91 if mobile else 68}H{width-32}" stroke="{line}" opacity=".35"/>
-<text x="32" y="43" fill="{ink}" font-size="{23 if mobile else 24}">{identity_svg}</text>
+<text x="32" y="43" fill="{ink}" font-size="{20 if mobile else 21}">{identity_svg}</text>
 <text fill="{ink}" font-size="{size}" font-weight="600" letter-spacing="-1.4">{text}</text>
 <g transform="translate(16 390)">{clockwork(colors)}</g>
 <g transform="{position}">{scene(colors, lang)}</g>
