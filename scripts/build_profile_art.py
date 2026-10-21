@@ -2,6 +2,9 @@
 from pathlib import Path
 from html import escape
 from math import cos, sin, pi
+from functools import lru_cache
+
+import cairo
 
 ASSETS = Path(__file__).resolve().parents[1] / 'assets'
 
@@ -11,19 +14,30 @@ PICKUP_OFFSET = PICKUP_X - 350
 
 
 def motion_css():
-    rules = ['.block,.rig,.sling{opacity:0}']
-    for i, (start, dy, anchor) in enumerate([(0, -260, 340), (18, -180, 260), (36, -98, 178), (54, -24, 80)]):
-        small = (anchor + dy - 42) / (anchor - 42)
+    rules = ['.block,.sling{opacity:0}']
+    # One persistent trolley and cable; blocks share its pickup/drop timing.
+    phases = [(0, -260, 340), (18, -180, 260), (36, -98, 178), (54, -24, 80)]
+    trolley = {0: PICKUP_OFFSET, 100: PICKUP_OFFSET}
+    cable = {0: 38 / 298, 100: 38 / 298}
+    for i, (start, dy, anchor) in enumerate(phases):
+        trolley.update({start + 1: PICKUP_OFFSET, start + 5: 0,
+                        start + 14: 0, start + 18: PICKUP_OFFSET})
+        cable.update({start + 5: (anchor + dy - 42) / 298,
+                      start + 13: (anchor - 42) / 298,
+                      start + 14: (anchor - 42) / 298,
+                      start + 16: (14 if i == 2 else 38) / 298})
         rules.append(f'''
 .block-{i}{{animation:block{i} 28s ease-in-out infinite}}
-.rig-{i}{{animation:rig{i} 28s ease-in-out infinite}}
-.wire-{i}{{transform-origin:350px 42px;animation:wire{i} 28s ease-in-out infinite}}
 .sling-{i}{{animation:sling{i} 28s ease-in-out infinite}}
 @keyframes block{i}{{0%,{start}%{{opacity:0;transform:translate({PICKUP_OFFSET}px,{dy}px)}}{start+1}%{{opacity:1;transform:translate({PICKUP_OFFSET}px,{dy}px)}}{start+5}%{{opacity:1;transform:translate(0,{dy}px)}}{start+13}%,92%{{opacity:1;transform:translate(0,0)}}97%,100%{{opacity:0;transform:translate(0,0)}}}}
-@keyframes rig{i}{{0%,{start}%{{opacity:0;transform:translateX({PICKUP_OFFSET}px)}}{start+1}%{{opacity:1;transform:translateX({PICKUP_OFFSET}px)}}{start+5}%,{start+13}%{{opacity:1;transform:translateX(0)}}{start+14}%,100%{{opacity:0;transform:translateX(0)}}}}
-@keyframes wire{i}{{0%,{start+5}%{{transform:scaleY({small:.4f})}}{start+13}%,100%{{transform:scaleY(1)}}}}
-@keyframes sling{i}{{0%,{start}%{{opacity:0}}{start+1}%,{start+12}%{{opacity:1}}{start+14}%,100%{{opacity:0}}}}
+@keyframes sling{i}{{0%,{start}%{{opacity:0}}{start+1}%,{start+13}%{{opacity:1}}{start+14}%,100%{{opacity:0}}}}
 ''')
+    horizontal = ''.join(f'{t}%{{transform:translateX({x}px)}}' for t,x in sorted(trolley.items()))
+    vertical = ''.join(f'{t}%{{transform:scaleY({length:.7f})}}' for t,length in sorted(cable.items()))
+    rules.append('.rig{animation:trolley 28s ease-in-out infinite}'
+                 '.wire{transform-origin:350px 42px;animation:cable 28s ease-in-out infinite}'
+                 '@keyframes trolley{' + horizontal + '}'
+                 '@keyframes cable{' + vertical + '}')
     rules.append('''
 .gear{animation:turn var(--period) linear infinite}.reverse{animation-direction:reverse}
 .balance{animation:balance 1.4s ease-in-out infinite}
@@ -34,6 +48,41 @@ def motion_css():
 @media(prefers-reduced-motion:reduce){.block{animation:none;opacity:1;transform:none}.rig,.sling{animation:none;opacity:0}.wire,.gear,.balance,.stream{animation:none}}
 ''')
     return '\n'.join(rules)
+
+
+@lru_cache(maxsize=None)
+def outlined_label(text, x, y, size, color, tracking=0):
+    """Freeze moving glyph shapes, avoiding per-frame font hinting/pixel snapping.
+
+    Build dependency: pycairo and Arial (or its fontconfig-compatible fallback).
+    Outlines retain accessible labels; the generated SVG needs no font download.
+    """
+    context = cairo.Context(cairo.RecordingSurface(cairo.CONTENT_COLOR_ALPHA, None))
+    options = cairo.FontOptions()
+    options.set_hint_style(cairo.HINT_STYLE_NONE)
+    options.set_hint_metrics(cairo.HINT_METRICS_OFF)
+    context.set_font_options(options)
+    context.select_font_face('Arial', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+    context.set_font_size(size)
+    if tracking:
+        advances = [context.text_extents(char).x_advance for char in text]
+        width = sum(advances) + tracking * (len(text) - 1)
+        cursor = 0
+        for char, advance in zip(text, advances):
+            context.move_to(cursor, 0)
+            context.text_path(char)
+            cursor += advance + tracking
+    else:
+        width = context.text_extents(text).x_advance
+        context.move_to(0, 0)
+        context.text_path(text)
+    commands = {cairo.PATH_MOVE_TO: 'M', cairo.PATH_LINE_TO: 'L',
+                cairo.PATH_CURVE_TO: 'C', cairo.PATH_CLOSE_PATH: 'Z'}
+    path = ''.join(commands[kind] + ' '.join(f'{v:.3f}'.rstrip('0').rstrip('.') for v in points)
+                   for kind, points in context.copy_path())
+    label = escape(text, quote=True)
+    return (f'<g class="block-label" role="img" aria-label="{label}"><title>{label}</title>'
+            f'<path fill="{color}" transform="translate({x-width/2:.3f} {y})" d="{path}"/></g>')
 
 
 def scene(c, lang):
@@ -47,8 +96,7 @@ def scene(c, lang):
     for x in range(80, CRANE_END-39, 40):
         result += f'<path d="M{x} 35l20 14 20-14"/>'
     result += '</g>'
-    for i, anchor in enumerate([340, 260, 178, 80]):
-        result += f'<g class="rig rig-{i}" fill="none" stroke="{accent}" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="{fill}"/><path class="wire wire-{i}" d="M350 42V{anchor}"/></g>'
+    result += f'<g class="rig" fill="none" stroke="{accent}" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="{fill}"/><path class="wire" d="M350 42V340" vector-effect="non-scaling-stroke"/></g>'
     labels = ['ИНФРАСТРУКТУРА', 'ДАННЫЕ И КОММУНИКАЦИИ', 'СЕРВЕР'] if lang == 'ru' else ['INFRASTRUCTURE', 'DATA & COMMUNICATION', 'SERVER']
     floors = [
         (0, 140, 358, 420, 60, labels[0], ['Docker · Kubernetes · CI/CD']),
@@ -57,15 +105,15 @@ def scene(c, lang):
     ]
     for i, x, y, width, height, label, tech in floors:
         result += f'''<g class="block block-{i}"><g class="sling sling-{i}" fill="none" stroke="{accent}" stroke-width="1.2"><path d="M{x+70} {y}L350 {y-18}L{x+width-70} {y}"/></g><rect x="{x}" y="{y}" width="{width}" height="{height}" rx="4" fill="{fill}" stroke="{line}"/><path d="M{x} {y+height-5}h{width}" stroke="{accent}" opacity=".3"/>
-<text x="350" y="{y+18}" text-anchor="middle" fill="{muted}" font-size="12" letter-spacing="1.4">{escape(label)}</text>'''
+{outlined_label(label, 350, y+18, 12, muted, 1.4)}'''
         for j, text in enumerate(tech):
-            result += f'<text x="350" y="{y+42+j*21}" text-anchor="middle" fill="{ink}" font-size="19">{escape(text)}</text>'
+            result += outlined_label(text, 350, y+42+j*21, 19, ink)
         result += '</g>'
     result += f'''<g class="block block-3"><g class="sling sling-3" fill="none" stroke="{accent}" stroke-width="1.2"><path d="M300 123L350 80L400 123"/></g>
 <path d="M140 188L350 96L560 188Z" fill="{fill}" stroke="{line}" stroke-linejoin="round"/>
 <path d="M150 188h400" stroke="{accent}" stroke-width="2"/>
-<text x="350" y="150" text-anchor="middle" fill="{ink}" font-size="19">TS · React · Vite</text>
-<text x="350" y="175" text-anchor="middle" fill="{ink}" font-size="18">Next.js · Node.js</text>
+{outlined_label('TS · React · Vite', 350, 150, 19, ink)}
+{outlined_label('Next.js · Node.js', 350, 175, 18, ink)}
 </g>'''
     return result
 
