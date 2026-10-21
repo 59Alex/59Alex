@@ -1,3 +1,6 @@
+<details name="profile-language" open>
+<summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="42" height="26" alt="RU"></picture></summary>
+
 <picture>
   <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-static-mobile-dark.svg">
   <source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="assets/header-static-mobile-light.svg">
@@ -8,12 +11,6 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
   <img src="assets/header-light.svg" width="100%" alt="Александр Кашеваров · Java &amp; TS Full Stack Engineer. Надежные Распределенные Высоконагруженные Системы.">
 </picture>
-
-<a href="#user-content-portfolio-ru" title="RU"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="42" height="26" alt="RU"></picture></a><a href="#user-content-portfolio-en" title="EN"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-dark.svg"><img src="assets/lang-en-light.svg" width="42" height="26" alt="EN"></picture></a>
-
-<details name="profile-language" open>
-<summary>О себе и проектах</summary>
-<a id="portfolio-ru"></a>
 
 ### Обо мне
 
@@ -41,8 +38,18 @@
 </details>
 
 <details name="profile-language">
-<summary>About & projects</summary>
-<a id="portfolio-en"></a>
+<summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-dark.svg"><img src="assets/lang-en-light.svg" width="42" height="26" alt="EN"></picture></summary>
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-en-static-mobile-dark.svg">
+  <source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="assets/header-en-static-mobile-light.svg">
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/header-en-static-dark.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/header-en-static-light.svg">
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-en-mobile-dark.svg">
+  <source media="(max-width: 600px)" srcset="assets/header-en-mobile-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/header-en-dark.svg">
+  <img src="assets/header-en-light.svg" width="100%" alt="Aleksandr Kashevarov · Java &amp; TS Full Stack Engineer. Reliable Distributed High-load Systems.">
+</picture>
 
 ### About me
 
