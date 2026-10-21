@@ -6,7 +6,7 @@
   <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="assets/header-mobile-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-  <img src="assets/header-light.svg" width="100%" alt="Aleksandr Kashevarov - Java Full Stack Engineer. Надёжные распределённые высоконагруженные системы.">
+  <img src="assets/header-light.svg" width="100%" alt="Александр Кашеваров · Java &amp; TS Full Stack Engineer. Надежные Распределенные Высоконагруженные Системы.">
 </picture>
 
 <a href="#user-content-portfolio-ru" title="RU"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="42" height="26" alt="RU"></picture></a><a href="#user-content-portfolio-en" title="EN"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-en-dark.svg"><img src="assets/lang-en-light.svg" width="42" height="26" alt="EN"></picture></a>
@@ -15,24 +15,28 @@
 <summary>О себе и проектах</summary>
 <a id="portfolio-ru"></a>
 
-Разрабатываю **cnnect**: Java-сервисы и React-интерфейс для общения, медиа и событий в реальном времени. Работаю с API, обработкой событий, хранением данных и доставкой изменений в браузер.
+### Обо мне
 
-- **Backend:** Java, Spring Boot / WebFlux, Kafka, PostgreSQL, Redis. Транзакции, повторная доставка событий, восстановление соединений.
-- **Frontend:** TypeScript, React, Vite, WebRTC. Предзагрузка контента, общий медиакэш и управление временем жизни ресурсов.
-- **Инфраструктура:** Docker, Kubernetes, S3-совместимые хранилища, Keycloak и наблюдаемость. Node.js использую в инструментах разработки и тестах.
+С 2019 года разрабатываю серверные приложения и распределённые системы. Работал ведущим разработчиком в банковских и корпоративных проектах. Проектировал интеграции и модели данных, переводил бизнес-процессы на событийное взаимодействие. Занимался производительностью и устойчивостью сервисов.
 
-### Библиотеки
+Сейчас разрабатываю **массовый мессенджер для безопасного общения в реальном времени** — от Java-сервисов до интерфейса на TypeScript и React. В центре работы — скорость и надёжность: быстрая доставка сообщений, потоковая передача файлов и восстановление связи, чтобы общение оставалось непрерывным.
 
-Выделяю повторяющиеся задачи из cnnect в самостоятельные проекты. Сейчас в этих репозиториях — описание контрактов и планы реализации; опубликованных пакетов ещё нет.
+Особое внимание уделяю **качеству звука в звонках**, чтобы собеседникам было комфортно слышать друг друга. Для этого разрабатываю собственный механизм на базе нескольких нейросетей: они очищают звук от шума и пропускают сигнал микрофона только во время речи.
 
-**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript<br>
-Один медиаресурс часто нужен нескольким компонентам. Библиотека для общей загрузки и владения Blob URL: закрытие одной карточки не должно ломать изображение в другой, а неиспользуемые ресурсы должны освобождаться.
+### Мои Open Source библиотеки
 
-**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript<br>
-Передача файлов единым потоком между браузером, Java и S3. Цель — обойтись без накопления целого файла в памяти, учитывать скорость получателя и корректно отменять незавершённую передачу.
+Разрабатываю библиотеки для построения сложных систем с потоковой передачей данных. Они посвящены работе с файлами и медиа, а также восстановлению событий в браузере.
 
-**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript<br>
-Восстановление событий после потери связи: продолжить чтение с последнего обработанного курсора, затем перейти к live-потоку. Если история уже недоступна — явно запросить синхронизацию состояния.
+<sub>Лицензия MIT · В разработке, пакеты ещё не опубликованы.</sub>
+
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
+Общая загрузка и кэширование медиа для нескольких компонентов. Управление временем жизни Blob URL помогает избежать повторных загрузок: изображение остаётся доступным, пока оно нужно хотя бы одному компоненту, а затем память освобождается.
+
+**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
+Передача файлов сквозным потоком между браузером, Java и S3 без накопления целого файла в памяти. Управление скоростью потока учитывает возможности получателя, а отмена передачи освобождает занятые ресурсы.
+
+**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-sse-relay/blob/main/LICENSE">MIT</a></sub><br>
+Восстановление SSE-соединения с последнего обработанного события и переход к текущему потоку. Если сервер уже удалил пропущенную историю, приложение получает сигнал заново синхронизировать состояние.
 
 </details>
 
@@ -40,23 +44,27 @@
 <summary>About & projects</summary>
 <a id="portfolio-en"></a>
 
-I develop **cnnect**, a set of Java services and a React interface for communication, media and real-time events. My work covers APIs, event processing, data storage and delivering updates to the browser.
+### About me
 
-- **Backend:** Java, Spring Boot / WebFlux, Kafka, PostgreSQL and Redis. Transactions, event redelivery and connection recovery.
-- **Frontend:** TypeScript, React, Vite and WebRTC. Content prefetching, shared media caching and resource lifecycles.
-- **Infrastructure:** Docker, Kubernetes, S3-compatible storage, Keycloak and observability. I use Node.js for development tooling and tests.
+I've been building backend applications and distributed systems since 2019. I worked as a lead developer on banking and enterprise projects. My work covered integrations, data models and the transition to event-driven workflows, with a focus on service performance and resilience.
 
-### Libraries
+I'm now building a **mass-market messenger for secure, real-time communication**, from Java services to a TypeScript and React interface. My focus is speed and reliability: prompt message delivery, continuous file streaming and connection recovery that keeps conversations going.
 
-I am extracting recurring problems from cnnect into independent projects. These repositories currently contain contracts and implementation plans; packages have not been released yet.
+I pay particular attention to **call audio quality**, so people can hear each other comfortably. I'm developing a custom system that combines several neural networks to remove noise and pass microphone audio through only while someone is speaking.
 
-**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript<br>
-Several components often need the same media resource. Shared loading and Blob URL ownership should let one card disappear without breaking another, and release resources when they are no longer needed.
+### My Open Source Libraries
 
-**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript<br>
-Continuous file transfer between the browser, Java and S3. The goal is to avoid collecting an entire file in memory, respect the receiver's speed and cancel unfinished transfers correctly.
+I'm developing libraries that make complex systems with continuous data streams easier to build. They cover file transfers, media resources and event recovery in the browser.
 
-**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript<br>
-Recover events after a disconnect: resume from the last processed cursor, then switch to the live stream. If retained history is no longer available, explicitly request a state resync.
+<sub>MIT License · In development; packages have not been released yet.</sub>
+
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
+Shared media loading and caching across components. Blob URL lifecycle management avoids repeated downloads: a resource stays available while any component needs it, then its memory is released.
+
+**[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
+Continuous file streaming between the browser, Java and S3 without buffering the entire file in memory. Backpressure respects the receiver's capacity, and cancellation releases the resources held by a transfer.
+
+**[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-sse-relay/blob/main/LICENSE">MIT</a></sub><br>
+SSE reconnection from the last processed event, followed by a transition to the live stream. If the server no longer retains the missed history, the application is signalled to resync its state.
 
 </details>

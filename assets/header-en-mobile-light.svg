@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1030" viewBox="0 0 600 1030" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Aleksandr Kashevarov · Java &amp; TS Full Stack Engineer</title><desc id="desc">Reliable Distributed High-load Systems. A crane assembles a house of technologies: infrastructure, data and communication, server, frontend. A clockwork mechanism runs below.</desc>
+<defs><clipPath id="frame"><rect width="600" height="1030" rx="12"/></clipPath></defs>
+<style>.block,.rig,.sling{opacity:0}
+
+.block-0{animation:block0 28s ease-in-out infinite}
+.rig-0{animation:rig0 28s ease-in-out infinite}
+.wire-0{transform-origin:350px 42px;animation:wire0 28s ease-in-out infinite}
+.sling-0{animation:sling0 28s ease-in-out infinite}
+@keyframes block0{0%,0%{opacity:0;transform:translate(30px,-260px)}1%{opacity:1;transform:translate(30px,-260px)}5%{opacity:1;transform:translate(0,-260px)}13%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig0{0%,0%{opacity:0;transform:translateX(30px)}1%{opacity:1;transform:translateX(30px)}5%,13%{opacity:1;transform:translateX(0)}14%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire0{0%,5%{transform:scaleY(0.1275)}13%,100%{transform:scaleY(1)}}
+@keyframes sling0{0%,0%{opacity:0}1%,12%{opacity:1}14%,100%{opacity:0}}
+
+
+.block-1{animation:block1 28s ease-in-out infinite}
+.rig-1{animation:rig1 28s ease-in-out infinite}
+.wire-1{transform-origin:350px 42px;animation:wire1 28s ease-in-out infinite}
+.sling-1{animation:sling1 28s ease-in-out infinite}
+@keyframes block1{0%,18%{opacity:0;transform:translate(30px,-180px)}19%{opacity:1;transform:translate(30px,-180px)}23%{opacity:1;transform:translate(0,-180px)}31%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig1{0%,18%{opacity:0;transform:translateX(30px)}19%{opacity:1;transform:translateX(30px)}23%,31%{opacity:1;transform:translateX(0)}32%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire1{0%,23%{transform:scaleY(0.1743)}31%,100%{transform:scaleY(1)}}
+@keyframes sling1{0%,18%{opacity:0}19%,30%{opacity:1}32%,100%{opacity:0}}
+
+
+.block-2{animation:block2 28s ease-in-out infinite}
+.rig-2{animation:rig2 28s ease-in-out infinite}
+.wire-2{transform-origin:350px 42px;animation:wire2 28s ease-in-out infinite}
+.sling-2{animation:sling2 28s ease-in-out infinite}
+@keyframes block2{0%,36%{opacity:0;transform:translate(30px,-98px)}37%{opacity:1;transform:translate(30px,-98px)}41%{opacity:1;transform:translate(0,-98px)}49%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig2{0%,36%{opacity:0;transform:translateX(30px)}37%{opacity:1;transform:translateX(30px)}41%,49%{opacity:1;transform:translateX(0)}50%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire2{0%,41%{transform:scaleY(0.2794)}49%,100%{transform:scaleY(1)}}
+@keyframes sling2{0%,36%{opacity:0}37%,48%{opacity:1}50%,100%{opacity:0}}
+
+
+.block-3{animation:block3 28s ease-in-out infinite}
+.rig-3{animation:rig3 28s ease-in-out infinite}
+.wire-3{transform-origin:350px 42px;animation:wire3 28s ease-in-out infinite}
+.sling-3{animation:sling3 28s ease-in-out infinite}
+@keyframes block3{0%,54%{opacity:0;transform:translate(30px,-24px)}55%{opacity:1;transform:translate(30px,-24px)}59%{opacity:1;transform:translate(0,-24px)}67%,92%{opacity:1;transform:translate(0,0)}97%,100%{opacity:0;transform:translate(0,0)}}
+@keyframes rig3{0%,54%{opacity:0;transform:translateX(30px)}55%{opacity:1;transform:translateX(30px)}59%,67%{opacity:1;transform:translateX(0)}68%,100%{opacity:0;transform:translateX(0)}}
+@keyframes wire3{0%,59%{transform:scaleY(0.3684)}67%,100%{transform:scaleY(1)}}
+@keyframes sling3{0%,54%{opacity:0}55%,66%{opacity:1}68%,100%{opacity:0}}
+
+
+.gear{animation:turn var(--period) linear infinite}.reverse{animation-direction:reverse}
+.balance{animation:balance 1.4s ease-in-out infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+@keyframes balance{0%,100%{transform:rotate(-26deg)}50%{transform:rotate(26deg)}}
+@media(prefers-reduced-motion:reduce){.block{animation:none;opacity:1;transform:none}.rig,.sling{animation:none;opacity:0}.wire,.gear,.balance{animation:none}}
+</style>
+<g clip-path="url(#frame)" font-family="Arial, Helvetica, sans-serif">
+<rect width="600" height="1030" fill="#F4F0FA"/>
+<path d="M32 91H568" stroke="#B7A0CB" opacity=".35"/>
+<text x="32" y="43" fill="#29143E" font-size="23"><tspan x="32" y="38">Aleksandr Kashevarov</tspan><tspan x="32" y="69">Java &amp; TS Full Stack Engineer</tspan></text>
+<text fill="#29143E" font-size="44" font-weight="600" letter-spacing="-1.4"><tspan x="32" y="153">Reliable</tspan><tspan x="32" y="214">Distributed</tspan><tspan x="32" y="275">High-load</tspan><tspan x="32" y="336">Systems</tspan></text>
+<g transform="translate(12 395) scale(1.12)"><g fill="none" stroke="#B7A0CB" stroke-width="1.2">
+<path d="M76 28Q88 4 122 4H353Q389 4 405 37L430 98Q439 128 411 144H122Q79 144 72 110Z"/>
+<path d="M84 29Q99 13 126 13H350M416 115Q411 134 387 135H133" opacity=".45"/>
+</g><g transform="translate(151 74)"><g class="gear " style="--period:29s" stroke="#8050AC" fill="none" stroke-width="1.4">
+<polygon points="55.00,0.00 60.95,2.38 60.57,7.25 54.31,8.66 53.71,11.82 59.02,15.43 57.59,20.10 51.18,20.14 49.92,23.09 54.32,27.75 51.92,32.01 45.66,30.67 43.79,33.28 47.09,38.78 43.83,42.43 38.00,39.77 35.61,41.92 37.65,48.00 33.68,50.86 28.56,47.00 25.76,48.59 26.45,54.97 21.96,56.91 17.79,52.04 14.71,53.00 14.02,59.37 9.22,60.30 6.18,54.65 2.98,54.92 0.93,60.99 -3.96,60.87 -5.71,54.70 -8.90,54.28 -12.21,59.77 -16.95,58.60 -17.34,52.20 -20.36,51.09 -24.77,55.74 -29.16,53.58 -28.15,47.25 -30.87,45.52 -36.17,49.12 -39.99,46.06 -37.65,40.09 -39.93,37.82 -45.89,40.19 -48.96,36.39 -45.39,31.06 -47.13,28.36 -53.45,29.39 -55.64,25.01 -51.01,20.58 -52.12,17.56 -58.52,17.21 -59.71,12.47 -54.24,9.13 -54.68,5.95 -60.85,4.23 -61.00,-0.66 -54.93,-2.74 -54.68,-5.95 -60.34,-8.95 -59.43,-13.76 -53.06,-14.48 -52.12,-17.56 -57.00,-21.72 -55.08,-26.21 -48.70,-25.55 -47.13,-28.36 -51.00,-33.46 -48.16,-37.44 -42.07,-35.42 -39.93,-37.82 -42.62,-43.64 -38.98,-46.92 -33.47,-43.64 -30.87,-45.52 -32.24,-51.79 -27.99,-54.20 -23.31,-49.82 -20.36,-51.09 -20.35,-57.50 -15.68,-58.95 -12.06,-53.66 -8.90,-54.28 -7.51,-60.54 -2.64,-60.94 -0.24,-55.00 2.98,-54.92 5.67,-60.74 10.52,-60.09 11.59,-53.76 14.71,-53.00 18.60,-58.10 23.19,-56.42 22.88,-50.02 25.76,-48.59 30.65,-52.74 34.78,-50.12 33.09,-43.93 35.61,-41.92 41.27,-44.92 44.74,-41.47 41.76,-35.79 43.79,-33.28 49.96,-34.99 52.61,-30.88 48.48,-25.97 49.92,-23.09 56.32,-23.44 58.01,-18.85 52.93,-14.94 53.71,-11.82 60.04,-10.78 60.71,-5.94 54.91,-3.22" fill="#E8DEF1"/><circle r="48"/><path d="M12.00 0.00L46.00 0.00"/><path d="M6.00 10.39L23.00 39.84"/><path d="M-6.00 10.39L-23.00 39.84"/><path d="M-12.00 0.00L-46.00 0.00"/><path d="M-6.00 -10.39L-23.00 -39.84"/><path d="M6.00 -10.39L23.00 -39.84"/><circle r="10" fill="#E8DEF1"/></g><circle r="4" fill="#8050AC"/><circle r="1.5" fill="#29143E"/></g><g transform="translate(247 74)"><g class="gear reverse" style="--period:19s" stroke="#8050AC" fill="none" stroke-width="1.4">
+<polygon points="35.00,0.00 40.93,2.44 40.32,7.42 33.99,8.37 33.10,11.36 37.92,15.60 35.73,20.11 29.43,18.95 27.62,21.50 30.80,27.06 27.27,30.62 21.68,27.48 19.14,29.30 20.34,35.60 15.85,37.81 11.58,33.03 8.59,33.93 7.68,40.27 2.71,40.91 0.23,35.00 -2.89,34.88 -5.81,40.59 -10.72,39.57 -11.15,33.18 -14.06,32.05 -18.67,36.50 -22.99,33.95 -21.31,27.76 -23.70,25.75 -29.51,28.46 -32.77,24.64 -29.17,19.34 -30.78,16.66 -37.16,17.33 -38.99,12.67 -33.87,8.82 -34.52,5.76 -40.77,4.33 -40.99,-0.68 -34.90,-2.66 -34.52,-5.76 -39.97,-9.14 -38.55,-13.95 -32.14,-13.85 -30.78,-16.66 -34.83,-21.62 -31.93,-25.71 -25.91,-23.53 -23.70,-25.75 -25.92,-31.76 -21.85,-34.69 -16.86,-30.67 -14.06,-32.05 -14.21,-38.46 -9.41,-39.91 -5.99,-34.48 -2.89,-34.88 -0.95,-40.99 4.06,-40.80 5.53,-34.56 8.59,-33.93 12.41,-39.08 17.09,-37.27 16.45,-30.89 19.14,-29.30 24.43,-32.93 28.26,-29.70 25.59,-23.87 27.62,-21.50 33.80,-23.21 36.38,-18.91 31.96,-14.27 33.10,-11.36 39.50,-10.98 40.55,-6.08 34.86,-3.12" fill="#E8DEF1"/><circle r="28"/><path d="M12.00 0.00L26.00 0.00"/><path d="M6.00 10.39L13.00 22.52"/><path d="M-6.00 10.39L-13.00 22.52"/><path d="M-12.00 0.00L-26.00 0.00"/><path d="M-6.00 -10.39L-13.00 -22.52"/><path d="M6.00 -10.39L13.00 -22.52"/><circle r="10" fill="#E8DEF1"/></g><circle r="4" fill="#8050AC"/><circle r="1.5" fill="#29143E"/></g><g transform="translate(299 118)"><g class="gear " style="--period:15s" stroke="#8050AC" fill="none" stroke-width="1.4">
+<polygon points="27.00,0.00 32.91,2.49 32.13,7.54 25.75,8.13 24.67,10.98 29.05,15.66 26.29,19.95 20.22,17.90 18.07,20.06 20.17,26.12 15.90,28.92 11.19,24.57 8.34,25.68 7.80,32.06 2.76,32.88 0.23,27.00 -2.82,26.85 -5.91,32.47 -10.85,31.16 -10.77,24.76 -13.50,23.38 -18.61,27.25 -22.59,24.06 -19.91,18.23 -21.84,15.87 -28.08,17.33 -30.42,12.79 -25.61,8.56 -26.41,5.61 -32.70,4.41 -32.99,-0.69 -26.87,-2.60 -26.41,-5.61 -31.67,-9.27 -29.86,-14.05 -23.49,-13.30 -21.84,-15.87 -25.16,-21.35 -21.56,-24.98 -16.05,-21.71 -13.50,-23.38 -14.30,-29.74 -9.54,-31.59 -5.83,-26.36 -2.82,-26.85 -0.97,-32.99 4.14,-32.74 5.39,-26.46 8.34,-25.68 12.53,-30.53 17.09,-28.23 15.69,-21.98 18.07,-20.06 23.87,-22.79 27.10,-18.83 23.27,-13.70 24.67,-10.98 31.07,-11.11 32.42,-6.18 26.83,-3.05" fill="#E8DEF1"/><circle r="20"/><path d="M12.00 0.00L18.00 0.00"/><path d="M6.00 10.39L9.00 15.59"/><path d="M-6.00 10.39L-9.00 15.59"/><path d="M-12.00 0.00L-18.00 0.00"/><path d="M-6.00 -10.39L-9.00 -15.59"/><path d="M6.00 -10.39L9.00 -15.59"/><circle r="10" fill="#E8DEF1"/></g><circle r="4" fill="#8050AC"/><circle r="1.5" fill="#29143E"/></g><g transform="translate(365 65)" fill="none" stroke="#8050AC">
+<circle r="43" stroke="#B7A0CB"/><g class="balance"><circle r="36" stroke-width="2"/><circle r="30" stroke-width=".7"/>
+<path d="M-36 0h72M0-36v72" stroke-width="2"/><path d="M0 0C-5-10 15-15 18 0S-7 25-19 9S-12-27 12-25S43 10 22 25" stroke-width="1"/></g><circle r="4" fill="#8050AC"/>
+</g><path d="M120 74H268L299 118" fill="none" stroke="#B7A0CB" stroke-width="9" stroke-linecap="round"/>
+<path d="M120 74H268L299 118" fill="none" stroke="#716180" stroke-width=".6"/>
+<circle cx="106" cy="29" r="4" fill="#E8DEF1" stroke="#8050AC"/><path d="M104 31l4-4" stroke="#716180"/><circle cx="395" cy="116" r="4" fill="#E8DEF1" stroke="#8050AC"/><path d="M393 118l4-4" stroke="#716180"/><circle cx="151" cy="74" r="4" fill="#E8DEF1" stroke="#8050AC"/><path d="M149 76l4-4" stroke="#716180"/><circle cx="247" cy="74" r="4" fill="#E8DEF1" stroke="#8050AC"/><path d="M245 76l4-4" stroke="#716180"/><circle cx="299" cy="118" r="4" fill="#E8DEF1" stroke="#8050AC"/><path d="M297 120l4-4" stroke="#716180"/></g>
+<g transform="translate(0 575) scale(1.02)"><g fill="none" stroke="#B7A0CB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 426h552 M40 420V35h22v385 M22 420h58 M22 35h530v14H22z M40 35L54 8l9 27 M54 8l-32 27 M54 8l476 27"/>
+<rect x="10" y="52" width="25" height="20" rx="2" fill="#E8DEF1"/>
+<path d="M40 49l22 40M40 89l22-40"/><path d="M40 89l22 40M40 129l22-40"/><path d="M40 129l22 40M40 169l22-40"/><path d="M40 169l22 40M40 209l22-40"/><path d="M40 209l22 40M40 249l22-40"/><path d="M40 249l22 40M40 289l22-40"/><path d="M40 289l22 40M40 329l22-40"/><path d="M40 329l22 40M40 369l22-40"/><path d="M40 369l22 40M40 409l22-40"/><path d="M40 409l22 11M40 420l22-11"/><path d="M80 35l20 14 20-14"/><path d="M120 35l20 14 20-14"/><path d="M160 35l20 14 20-14"/><path d="M200 35l20 14 20-14"/><path d="M240 35l20 14 20-14"/><path d="M280 35l20 14 20-14"/><path d="M320 35l20 14 20-14"/><path d="M360 35l20 14 20-14"/><path d="M400 35l20 14 20-14"/><path d="M440 35l20 14 20-14"/><path d="M480 35l20 14 20-14"/></g><g class="rig rig-0" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-0" d="M350 42V340"/></g><g class="rig rig-1" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-1" d="M350 42V260"/></g><g class="rig rig-2" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-2" d="M350 42V178"/></g><g class="rig rig-3" fill="none" stroke="#8050AC" stroke-width="1.4"><rect x="343" y="32" width="14" height="18" rx="2" fill="#E8DEF1"/><path class="wire wire-3" d="M350 42V80"/></g><g class="block block-0"><g class="sling sling-0" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M210 358L350 340L490 358"/></g><rect x="140" y="358" width="420" height="60" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M140 413h420" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="376" text-anchor="middle" fill="#716180" font-size="12" letter-spacing="1.4">INFRASTRUCTURE</text><text x="350" y="400" text-anchor="middle" fill="#29143E" font-size="19">Docker · Kubernetes · CI/CD</text></g><g class="block block-1"><g class="sling sling-1" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M220 278L350 260L480 278"/></g><rect x="150" y="278" width="400" height="72" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M150 345h400" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="296" text-anchor="middle" fill="#716180" font-size="12" letter-spacing="1.4">DATA &amp; COMMUNICATION</text><text x="350" y="320" text-anchor="middle" fill="#29143E" font-size="19">Kafka · Redis · PostgreSQL</text><text x="350" y="341" text-anchor="middle" fill="#29143E" font-size="19">WebRTC · SSE</text></g><g class="block block-2"><g class="sling sling-2" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M220 196L350 178L480 196"/></g><rect x="150" y="196" width="400" height="74" rx="4" fill="#E8DEF1" stroke="#B7A0CB"/><path d="M150 265h400" stroke="#8050AC" opacity=".3"/>
+<text x="350" y="214" text-anchor="middle" fill="#716180" font-size="12" letter-spacing="1.4">SERVER</text><text x="350" y="238" text-anchor="middle" fill="#29143E" font-size="19">Java · Spring · Debezium</text><text x="350" y="259" text-anchor="middle" fill="#29143E" font-size="19">Project Reactor</text></g><g class="block block-3"><g class="sling sling-3" fill="none" stroke="#8050AC" stroke-width="1.2"><path d="M300 123L350 80L400 123"/></g>
+<path d="M140 188L350 96L560 188Z" fill="#E8DEF1" stroke="#B7A0CB" stroke-linejoin="round"/>
+<path d="M150 188h400" stroke="#8050AC" stroke-width="2"/>
+<text x="350" y="150" text-anchor="middle" fill="#29143E" font-size="19">TS · React · Vite</text>
+<text x="350" y="175" text-anchor="middle" fill="#29143E" font-size="18">Next.js · Node.js</text>
+</g></g>
+</g></svg>
