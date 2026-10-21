@@ -7,43 +7,60 @@
 
 # Aleksandr Kashevarov
 
-**Java Full Stack Developer** · Backend systems, browser applications & open source.
+**Java Full Stack Developer** · From the browser interaction to the backend transaction.
 
-I build applications across the stack: Java services, React interfaces, and the infrastructure connecting them. My focus is on streaming data, real-time communication, and making failure handling explicit.
+I build Java services and React applications, with a particular interest in what happens between them: streaming files, delivering events, and keeping state consistent when connections fail.
+
+My work spans Spring APIs, Kafka pipelines, browser media, and containerized infrastructure. I'm now packaging reusable parts of that experience into open-source libraries.
+
+**[Explore the libraries ↓](#building-in-the-open)**
+
+<details open>
+<summary><b>The stack in motion</b> · click to show or hide</summary>
+<br>
+<a href="#what-i-work-with" title="Explore the technologies">
+<picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/tech-strip-mobile-dark.svg">
+  <source media="(max-width: 600px)" srcset="assets/tech-strip-mobile-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/tech-strip-dark.svg">
+  <img src="assets/tech-strip-light.svg" width="100%" alt="Java, Spring, TypeScript, React, Kafka, PostgreSQL, Redis, Docker and Kubernetes. Select to explore the stack.">
+</picture>
+</a>
+</details>
 
 ### What I work with
 
 **Backend**  
-Java · Spring Boot · Spring WebFlux · Kafka · PostgreSQL · Redis
+[Java 21](https://dev.java/) · [Spring Boot](https://spring.io/projects/spring-boot) · [WebFlux](https://docs.spring.io/spring-framework/reference/web/webflux.html) · [Kafka](https://kafka.apache.org/) · [PostgreSQL](https://www.postgresql.org/) · [Redis](https://redis.io/)
 
 **Frontend**  
-TypeScript · React · Browser Streams · Server-Sent Events
+[TypeScript](https://www.typescriptlang.org/) · [React](https://react.dev/) · [Vite](https://vite.dev/) · Browser Streams · Server-Sent Events · WebRTC
 
 **Infrastructure**  
-Docker · Kubernetes · S3-compatible storage · Observability
+[Docker](https://www.docker.com/) · [Kubernetes](https://kubernetes.io/) · S3-compatible storage · OAuth2 / Keycloak · Observability
 
 ### Building in the open
 
-I'm turning recurring application problems into focused, reusable libraries. These projects are in early development; their repositories describe the planned APIs and release criteria.
+Three libraries, each focused on a problem I've worked with in application code. **Early development:** the repositories currently contain implementation plans and release criteria.
 
 #### [browser-media-cache](https://github.com/59Alex/browser-media-cache)
 
 **TypeScript · Browser infrastructure**  
-Shared media loads, explicit ownership of blob URLs, and predictable cache cleanup. Designed to keep resource lifetimes manageable when several components use the same media.
+One media resource, several UI components. Planned shared loading and explicit blob URL ownership keep cleanup predictable as components mount and disappear.
 
 #### [s3-file-streams](https://github.com/59Alex/s3-file-streams)
 
 **Java + TypeScript · Streaming**  
-Continuous file transfer from the browser through Java to S3 — and back. The goal: bounded buffering, backpressure, cancellation, and clear completion semantics across the whole pipeline.
+One continuous stream from the browser through Java to S3, and back. Designed around bounded buffering, backpressure, cancellation, and the difference between bytes sent and an object committed.
 
 #### [browser-sse-relay](https://github.com/59Alex/browser-sse-relay)
 
 **TypeScript · Real-time delivery**  
-Recovering event streams after a disconnect: cursors, replay, and an explicit resync path when history is no longer available. Built around a documented client–server contract.
+A reconnect is only the first step. Planned cursor replay and a resync contract address events missed while the client was offline.
 
 ---
 
 **How I approach engineering**  
-Clear contracts. Visible failure modes. Reproducible tests. Useful documentation.
+I care about where guarantees start, where they stop, and how to demonstrate both with a reproducible test.
 
 Have a use case for one of these libraries? Open an issue in its repository — concrete scenarios help shape the API.
