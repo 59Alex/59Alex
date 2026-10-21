@@ -1,10 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="294" viewBox="0 0 480 294" role="img" aria-labelledby="title desc">
-<title id="title">Java Full Stack</title><desc id="desc">59Alex. From browser to backend. A browser, services and storage connected as one system.</desc>
-<rect width="480" height="294" rx="12" fill="#EEF4F5"/>
-  <path d="M32 28h24" stroke="#087E71" stroke-width="4"/>
-  <text x="68" y="34" fill="#526D7B" font-family="monospace" font-size="13" letter-spacing="2">59ALEX / ENGINEERING</text>
-  <text x="30" y="116" fill="#102D3C" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800" letter-spacing="-3">JAVA</text>
-  <text x="30" y="188" fill="#102D3C" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800" letter-spacing="-3">FULL STACK<tspan fill="#087E71">.</tspan></text>
-  <path d="M32 216h416" stroke="#B8CCD3"/>
-  <text x="32" y="246" fill="#526D7B" font-family="monospace" font-size="14">FROM BROWSER TO BACKEND</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="356" viewBox="0 0 480 356" role="img" aria-labelledby="title desc">
+<title id="title">59Alex · Java Full Stack</title>
+<desc id="desc">Java and Spring services, React and TypeScript interfaces, Kafka event streams. From interaction to transaction.</desc>
+<defs>
+ <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#C4D5CC"/></pattern>
+ <linearGradient id="wash" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#F0F4EF"/><stop offset="1" stop-color="#E4ECE4"/></linearGradient>
+ <clipPath id="frame"><rect width="480" height="356" rx="20"/></clipPath>
+</defs>
+<g clip-path="url(#frame)">
+ <rect width="480" height="356" fill="url(#wash)"/>
+ <rect x="254.4" width="225.6" height="356" fill="url(#dots)" opacity=".55"/>
+ <path d="M28 32h18" stroke="#087C5B" stroke-width="4"/>
+ <text x="58" y="37" fill="#4B6660" font-family="monospace" font-size="14" letter-spacing="2">59ALEX / ENGINEERING</text>
+ <text x="25" y="143" fill="#142B27" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="88" letter-spacing="-5">JAVA<tspan fill="#087C5B">.</tspan></text>
+ <text x="26" y="211" fill="#142B27" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="58" letter-spacing="-3">FULL STACK</text>
+<path d="M28 246h424" stroke="#C4D5CC"/>
+<g font-family="monospace" font-size="13" fill="#4B6660">
+ <text x="28" y="276">JAVA + SPRING</text><text x="256" y="276">REACT + TYPESCRIPT</text>
+</g>
+<path d="M28 312h24m-5-5 5 5-5 5" fill="none" stroke="#087C5B" stroke-width="2"/>
+<text x="66" y="317" fill="#142B27" font-family="Arial, Helvetica, sans-serif" font-size="18">From interaction to transaction.</text>
+</g></svg>
