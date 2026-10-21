@@ -1,3 +1,5 @@
+**English** · [Русский](https://github.com/59Alex/59Alex/blob/main/README.ru.md)
+
 <picture>
   <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/header-mobile-dark.svg">
   <source media="(max-width: 600px)" srcset="assets/header-mobile-light.svg">
