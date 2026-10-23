@@ -41,7 +41,7 @@ Compares model snapshots by stable keys and selected fields. Produces ordered ad
 Composes asynchronous processing steps with bounded concurrency, timeouts and cancellation. Retries apply to the failing step; an optional Jolt adapter transforms JSON records.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
-Shared media loading and caching across components. Blob URL lifecycle management avoids repeated downloads: a resource stays available while any component needs it, then its memory is released.
+Shares media loads across components with explicit acquire/release ownership. Idle TTL and budgets manage cached Blob URLs; optional CacheStorage and React adapters connect the same lifecycle to persistence and UI.
 
 **[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
 Continuous file streaming between the browser, Java and S3 without buffering the entire file in memory. Backpressure respects the receiver's capacity, and cancellation releases the resources held by a transfer.
@@ -92,7 +92,7 @@ SSE reconnection from the last processed event, followed by a transition to the 
 Объединяет асинхронные шаги обработки с ограниченной конкурентностью, тайм-аутами и отменой. Повторяется только сбойный шаг; отдельный адаптер Jolt преобразует JSON-записи.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
-Общая загрузка и кэширование медиа для нескольких компонентов. Управление временем жизни Blob URL помогает избежать повторных загрузок: изображение остаётся доступным, пока оно нужно хотя бы одному компоненту, а затем память освобождается.
+Общая загрузка медиа для нескольких компонентов с явным владением через acquire/release. TTL и бюджеты управляют неиспользуемыми Blob URL; отдельные адаптеры CacheStorage и React связывают этот жизненный цикл с хранилищем и интерфейсом.
 
 **[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
 Передача файлов сквозным потоком между браузером, Java и S3 без накопления целого файла в памяти. Управление скоростью потока учитывает возможности получателя, а отмена передачи освобождает занятые ресурсы.
