@@ -24,30 +24,30 @@ I pay particular attention to **call audio quality**, so people can hear each ot
 
 I build libraries for data processing and reliable distributed applications: model comparison, queries from metadata, background jobs and reactive pipelines, alongside continuous file streaming and browser resources.
 
-[Read the guides · version / EN / RU](docs/README.md) — capabilities, examples and usage boundaries.
+Each library’s README includes EN/RU documentation, a quick start and examples. [Browse the Markdown index](docs/README.md).
 
 <sub>Libraries are licensed under MIT.</sub>
-
-**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
-Builds explainable JOIN plans from relational metadata. Ambiguous relationships require an explicit choice, so dynamic queries follow the intended data model.
-
-**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
-Coordinates background tasks across workers through expiring leases. Atomic claims, heartbeats and retries support recovery; a stale worker cannot complete a task after losing its lease.
-
-**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
-Compares model snapshots by stable keys and selected fields. Produces ordered additions, removals and field changes for schema reviews, synchronization and change reports.
 
 **[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 17+ / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
 Composes asynchronous processing steps with bounded concurrency, timeouts and cancellation. Retries apply to the failing step; an optional Jolt adapter transforms JSON records.
 
-**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
-Shares media loads across components with explicit acquire/release ownership. Idle TTL and budgets manage cached Blob URLs; optional CacheStorage and React adapters connect the same lifecycle to persistence and UI.
-
 **[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
 Continuous file streaming between the browser, Java and S3 without buffering the entire file in memory. Backpressure respects the receiver's capacity, and cancellation releases the resources held by a transfer.
 
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
+Shares media loads across components with explicit acquire/release ownership. Idle TTL and budgets manage cached Blob URLs; optional CacheStorage and React adapters connect the same lifecycle to persistence and UI.
+
 **[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-sse-relay/blob/main/LICENSE">MIT</a></sub><br>
-SSE reconnection from the last processed event, followed by a transition to the live stream. If the server no longer retains the missed history, the application is signalled to resync its state.</details>
+SSE reconnection from the last processed event, followed by a transition to the live stream. If the server no longer retains the missed history, the application is signalled to resync its state.
+
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+Coordinates background tasks across workers through expiring leases. Atomic claims, heartbeats and retries support recovery; a stale worker cannot complete a task after losing its lease.
+
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+Builds explainable JOIN plans from relational metadata. Ambiguous relationships require an explicit choice, so dynamic queries follow the intended data model.
+
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+Compares model snapshots by stable keys and selected fields. Produces ordered additions, removals and field changes for schema reviews, synchronization and change reports.</details>
 
 <details name="profile-language" open>
 <summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/lang-ru-dark.svg"><img src="assets/lang-ru-light.svg" width="42" height="26" alt="RU"></picture></summary>
@@ -75,27 +75,27 @@ SSE reconnection from the last processed event, followed by a transition to the 
 
 Разрабатываю библиотеки для обработки данных и надёжных распределённых приложений: сравнения моделей, запросов по метаданным, фоновых задач и реактивных цепочек. Отдельное направление — сквозная передача файлов и работа с ресурсами браузера.
 
-[Руководства · версия / EN / RU](docs/README.md) — возможности, примеры и ограничения применения.
+В README каждой библиотеки — документация EN/RU, быстрый старт и примеры. [Оглавление Markdown-материалов](docs/README.md).
 
 <sub>Библиотеки защищены лицензией MIT.</sub>
-
-**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
-Строит объяснимый план JOIN по метаданным связей между таблицами. При неоднозначности требует явно выбрать связь, чтобы динамический запрос соответствовал смыслу модели данных.
-
-**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
-Распределяет фоновые задачи между воркерами с помощью аренды на ограниченное время. Атомарный захват, продление аренды и повторы помогают восстановить обработку после сбоя; старый воркер не сможет завершить задачу после потери аренды.
-
-**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
-Сравнивает снимки моделей по стабильным ключам и выбранным полям. Возвращает упорядоченные добавления, удаления и изменения полей для проверки схем, синхронизации и отчётов об изменениях.
 
 **[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 17+ / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
 Объединяет асинхронные шаги обработки с ограниченной конкурентностью, тайм-аутами и отменой. Повторяется только сбойный шаг; отдельный адаптер Jolt преобразует JSON-записи.
 
-**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
-Общая загрузка медиа для нескольких компонентов с явным владением через acquire/release. TTL и бюджеты управляют неиспользуемыми Blob URL; отдельные адаптеры CacheStorage и React связывают этот жизненный цикл с хранилищем и интерфейсом.
-
 **[s3-file-streams](https://github.com/59Alex/s3-file-streams)** · Java / TypeScript · <sub><a href="https://github.com/59Alex/s3-file-streams/blob/main/LICENSE">MIT</a></sub><br>
 Передача файлов сквозным потоком между браузером, Java и S3 без накопления целого файла в памяти. Управление скоростью потока учитывает возможности получателя, а отмена передачи освобождает занятые ресурсы.
 
+**[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
+Общая загрузка медиа для нескольких компонентов с явным владением через acquire/release. TTL и бюджеты управляют неиспользуемыми Blob URL; отдельные адаптеры CacheStorage и React связывают этот жизненный цикл с хранилищем и интерфейсом.
+
 **[browser-sse-relay](https://github.com/59Alex/browser-sse-relay)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-sse-relay/blob/main/LICENSE">MIT</a></sub><br>
-Восстановление SSE-соединения с последнего обработанного события и переход к текущему потоку. Если сервер уже удалил пропущенную историю, приложение получает сигнал заново синхронизировать состояние.</details>
+Восстановление SSE-соединения с последнего обработанного события и переход к текущему потоку. Если сервер уже удалил пропущенную историю, приложение получает сигнал заново синхронизировать состояние.
+
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+Распределяет фоновые задачи между воркерами с помощью аренды на ограниченное время. Атомарный захват, продление аренды и повторы помогают восстановить обработку после сбоя; старый воркер не сможет завершить задачу после потери аренды.
+
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+Строит объяснимый план JOIN по метаданным связей между таблицами. При неоднозначности требует явно выбрать связь, чтобы динамический запрос соответствовал смыслу модели данных.
+
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+Сравнивает снимки моделей по стабильным ключам и выбранным полям. Возвращает упорядоченные добавления, удаления и изменения полей для проверки схем, синхронизации и отчётов об изменениях.</details>

@@ -1,25 +1,23 @@
 # Library documentation / Документация библиотек
 
-Choose a library, guide language and release. Each guide lists capabilities with code examples, expected results and limitations.
+[← Back to profile README / Назад к README профиля](../README.md)
 
-Выберите библиотеку, язык руководства и версию. В каждом руководстве есть сводка возможностей, пример к каждой, ожидаемый результат и ограничения.
+Start with the library README: switch EN/RU, follow its quick start, then open a runnable example or the versioned guide. Everything here is ordinary Markdown in the repositories.
 
-| Library / Библиотека | EN | RU | Release / Версия | Language / Язык и среда |
-| --- | --- | --- | --- | --- |
-| [model-change-set](https://github.com/59Alex/model-change-set) | [English](https://github.com/59Alex/model-change-set/blob/main/docs/0.3.0/en.md) | [Русский](https://github.com/59Alex/model-change-set/blob/main/docs/0.3.0/ru.md) | [Versions / Версии](https://github.com/59Alex/model-change-set/blob/main/docs/index.md) | [Java 17 / 21 / 25 / 27](https://github.com/59Alex/model-change-set/blob/main/docs/0.3.0/java.ru.md) |
-| [relational-paths](https://github.com/59Alex/relational-paths) | [English](https://github.com/59Alex/relational-paths/blob/main/docs/0.3.0/en.md) | [Русский](https://github.com/59Alex/relational-paths/blob/main/docs/0.3.0/ru.md) | [Versions / Версии](https://github.com/59Alex/relational-paths/blob/main/docs/index.md) | [Java 17 / 21 / 25 / 27](https://github.com/59Alex/relational-paths/blob/main/docs/0.3.0/java.ru.md) |
-| [pg-task-lease](https://github.com/59Alex/pg-task-lease) | [English](https://github.com/59Alex/pg-task-lease/blob/main/docs/0.3.0/en.md) | [Русский](https://github.com/59Alex/pg-task-lease/blob/main/docs/0.3.0/ru.md) | [Versions / Версии](https://github.com/59Alex/pg-task-lease/blob/main/docs/index.md) | [Java 17 / 21 / 25 / 27](https://github.com/59Alex/pg-task-lease/blob/main/docs/0.3.0/java.ru.md) |
-| [reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit) | [English](https://github.com/59Alex/reactive-pipeline-kit/blob/main/docs/0.3.0/en.md) | [Русский](https://github.com/59Alex/reactive-pipeline-kit/blob/main/docs/0.3.0/ru.md) | [Versions / Версии](https://github.com/59Alex/reactive-pipeline-kit/blob/main/docs/index.md) | [Java 17 / 21 / 25 / 27](https://github.com/59Alex/reactive-pipeline-kit/blob/main/docs/0.3.0/java.ru.md) |
-| [browser-media-cache](https://github.com/59Alex/browser-media-cache) | [English](https://github.com/59Alex/browser-media-cache/blob/main/docs/0.1.0/en.md) | [Русский](https://github.com/59Alex/browser-media-cache/blob/main/docs/0.1.0/ru.md) | [Versions / Версии](https://github.com/59Alex/browser-media-cache/blob/main/docs/index.md) | [TypeScript / ES2022](https://github.com/59Alex/browser-media-cache#language-and-runtime-baseline) |
-| [s3-file-streams](https://github.com/59Alex/s3-file-streams) | [English](https://github.com/59Alex/s3-file-streams/blob/main/docs/0.1.0/en.md) | [Русский](https://github.com/59Alex/s3-file-streams/blob/main/docs/0.1.0/ru.md) | [Versions / Версии](https://github.com/59Alex/s3-file-streams/blob/main/docs/index.md) | [Java 17 / 21 / 25 / 27](https://github.com/59Alex/s3-file-streams/blob/main/docs/JAVA-SUPPORT.md) |
-| [browser-sse-relay](https://github.com/59Alex/browser-sse-relay) | [English](https://github.com/59Alex/browser-sse-relay/blob/main/docs/v0.1.0/guide.en.md) | [Русский](https://github.com/59Alex/browser-sse-relay/blob/main/docs/v0.1.0/guide.ru.md) | [Versions / Версии](https://github.com/59Alex/browser-sse-relay/blob/main/docs/index.md) | [TypeScript / ES2022](https://github.com/59Alex/browser-sse-relay/blob/main/docs/v0.1.0/guide.en.md) |
+Начните с README библиотеки: выберите EN/RU, выполните быстрый старт, затем откройте запускаемый пример или руководство нужной версии. Все материалы — обычный Markdown внутри репозиториев.
 
-README navigation and the documentation stay inside GitHub. Language and version selectors are ordinary Markdown links; GitHub README does not execute JavaScript.
+| Library / Библиотека | Start and try / Начать и попробовать | Versions / Версии |
+| --- | --- | --- |
+| [reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit) | [README · EN/RU](https://github.com/59Alex/reactive-pipeline-kit/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/reactive-pipeline-kit/tree/main/docs/0.3.0/examples) | [Select / Выбрать](https://github.com/59Alex/reactive-pipeline-kit/blob/main/docs/index.md) |
+| [s3-file-streams](https://github.com/59Alex/s3-file-streams) | [README · EN/RU](https://github.com/59Alex/s3-file-streams/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/s3-file-streams/tree/main/examples/consumer) | [Select / Выбрать](https://github.com/59Alex/s3-file-streams/blob/main/docs/index.md) |
+| [browser-media-cache](https://github.com/59Alex/browser-media-cache) | [README · EN/RU](https://github.com/59Alex/browser-media-cache/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/browser-media-cache/tree/main/demo) | [Select / Выбрать](https://github.com/59Alex/browser-media-cache/blob/main/docs/index.md) |
+| [browser-sse-relay](https://github.com/59Alex/browser-sse-relay) | [README · EN/RU](https://github.com/59Alex/browser-sse-relay/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/browser-sse-relay/tree/main/demo) | [Select / Выбрать](https://github.com/59Alex/browser-sse-relay/blob/main/docs/index.md) |
+| [pg-task-lease](https://github.com/59Alex/pg-task-lease) | [README · EN/RU](https://github.com/59Alex/pg-task-lease/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/pg-task-lease/tree/main/docs/0.3.0/examples) | [Select / Выбрать](https://github.com/59Alex/pg-task-lease/blob/main/docs/index.md) |
+| [relational-paths](https://github.com/59Alex/relational-paths) | [README · EN/RU](https://github.com/59Alex/relational-paths/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/relational-paths/tree/main/docs/0.3.0/examples) | [Select / Выбрать](https://github.com/59Alex/relational-paths/blob/main/docs/index.md) |
+| [model-change-set](https://github.com/59Alex/model-change-set) | [README · EN/RU](https://github.com/59Alex/model-change-set/blob/main/README.md) · [Examples / Примеры](https://github.com/59Alex/model-change-set/tree/main/docs/0.3.0/examples) | [Select / Выбрать](https://github.com/59Alex/model-change-set/blob/main/docs/index.md) |
 
-Навигация README и руководства остаются внутри GitHub. Выбор языка и версии работает через обычные Markdown-ссылки: GitHub не исполняет JavaScript в README.
+The README explains prerequisites, commands and expected output. Example links open source code; run it using those instructions. Java compatibility and language features are described alongside each release.
 
-The Java compatibility pages distinguish APIs actually adopted by a library from support for running on a newer JVM.
+В README указаны требования, команды и ожидаемый результат. Ссылки на примеры открывают исходники; запускайте их по этим инструкциям. Совместимость Java и использованные возможности языка описаны рядом с каждой версией.
 
-Страницы совместимости Java отделяют реально используемые API от поддержки запуска на новой JVM.
-
-[Profile / Профиль](../README.md)
+[← Back to profile README / Назад к README профиля](../README.md)
