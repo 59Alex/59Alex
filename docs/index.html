@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-language="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Practical guides to four Java libraries by Aleksandr Kashevarov. Examples, behavior and limitations in English and Russian.">
+  <title>Library guides · Aleksandr Kashevarov</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%232d5d55'/%3E%3Cpath d='M12 28V12h16v16M12 20h16' stroke='white' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/content.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#reading">Skip to guide / К руководству</a>
+  <header class="topbar">
+    <button class="menu-button" id="menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation / Открыть меню"><span aria-hidden="true">☰</span></button>
+    <a class="brand" href="#model-change-set/setup"><span class="brand-mark" aria-hidden="true">ak.</span><span><strong>Aleksandr Kashevarov</strong><span class="brand-subtitle" id="brand-subtitle"></span></span></a>
+    <div class="header-right"><span class="edition">Java 17+ <span aria-hidden="true">/</span> 0.3.0</span><div class="language-toggle" role="group" aria-label="Language / Язык"><button type="button" data-language-button="en" lang="en" aria-label="English" aria-pressed="true">EN</button><button type="button" data-language-button="ru" lang="ru" aria-label="Русский" aria-pressed="false">RU</button></div></div>
+  </header>
+  <div class="shell">
+    <aside id="sidebar" class="sidebar" aria-label="Guide navigation / Навигация по руководствам">
+      <label class="search-label" for="guide-search" id="search-label"></label>
+      <div class="search-box"><span aria-hidden="true">⌕</span><input id="guide-search" type="search" autocomplete="off" spellcheck="false"></div>
+      <div id="search-results" class="search-results" hidden></div>
+      <div class="navigation-label" id="navigation-label"></div>
+      <nav id="navigation"></nav>
+      <div class="sidebar-footer"><span class="status-dot" aria-hidden="true"></span><span id="sidebar-footer"></span></div>
+    </aside>
+    <main id="reading" tabindex="-1"><div id="guide" class="guide"></div><noscript><h1>Java library guides / Руководства Java-библиотек</h1><p>Enable JavaScript to browse the bilingual guides. Включите JavaScript для просмотра руководств и переключения языка.</p></noscript></main>
+  </div>
+  <button id="menu-backdrop" class="menu-backdrop" tabindex="-1" aria-label="Close navigation / Закрыть меню" hidden></button>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>

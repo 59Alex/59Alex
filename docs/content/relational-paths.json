@@ -1,0 +1,510 @@
+{
+  "id": "relational-paths",
+  "name": "relational-paths",
+  "version": "0.3.0",
+  "runtime": "Java 17+",
+  "repo": "https://github.com/59Alex/relational-paths",
+  "summary": {
+    "en": "Turn runtime table metadata into deterministic, explainable JOIN plans. Resolve ambiguous relationships explicitly and render SELECT queries with bound values.",
+    "ru": "Стройте понятные и воспроизводимые планы JOIN по метаданным таблиц. Явно выбирайте неоднозначные связи и получайте SELECT-запросы с отдельными значениями параметров."
+  },
+  "sections": [
+    {
+      "id": "setup",
+      "title": {
+        "en": "Install and run locally",
+        "ru": "Подключение и локальная сборка"
+      },
+      "lead": {
+        "en": "For Java developers building query editors, reporting tools, or metadata-driven APIs. Start with JDK 17 or newer and a local build of version 0.3.0.",
+        "ru": "Для Java-разработчиков конструкторов запросов, отчётных инструментов и API на основе метаданных. Начните с JDK 17 или новее и локальной сборки версии 0.3.0."
+      },
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Minimum Java 17. Supported LTS runtimes: 17, 21, and 25; Java 27 is also supported. No preview flags or runtime dependencies are required.",
+              "ru": "Минимальная версия — Java 17. Поддерживаются LTS 17, 21 и 25, а также Java 27. Preview-флаги и дополнительные зависимости при выполнении не нужны."
+            },
+            {
+              "en": "The library has an MIT license. It plans joins and renders SQL; it does not connect to a database.",
+              "ru": "Библиотека распространяется по лицензии MIT. Она строит соединения и формирует SQL, но сама не подключается к базе данных."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "git clone https://github.com/59Alex/relational-paths.git\ncd relational-paths\n./gradlew build publishToMavenLocal",
+          "caption": {
+            "en": "Build the checked-out version and publish it to your local Maven repository.",
+            "ru": "Соберите текущую версию и опубликуйте её в локальном Maven-репозитории."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "build/libs/relational-paths-0.3.0.jar\nbuild/libs/relational-paths-0.3.0-sources.jar\nbuild/libs/relational-paths-0.3.0-javadoc.jar",
+          "caption": {
+            "en": "Expected artifacts for version 0.3.0.",
+            "ru": "Ожидаемые артефакты версии 0.3.0."
+          }
+        },
+        {
+          "type": "code",
+          "language": "kotlin",
+          "code": "repositories {\n    mavenLocal()\n    mavenCentral()\n}\ndependencies {\n    implementation(\"io.github.59alex:relational-paths:0.3.0\")\n}",
+          "caption": {
+            "en": "Add the locally published artifact to a consuming Gradle project.",
+            "ru": "Добавьте локально опубликованный артефакт в Gradle-проект потребителя."
+          }
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Local installation",
+            "ru": "Локальная установка"
+          },
+          "text": {
+            "en": "These instructions use mavenLocal. They do not claim that version 0.3.0 is published to Maven Central. If you use a different checkout version, keep the artifact version and file name consistent.",
+            "ru": "Эти инструкции используют mavenLocal и не означают, что версия 0.3.0 опубликована в Maven Central. Для другой версии исходников согласуйте координаты зависимости и имя JAR-файла."
+          }
+        }
+      ]
+    },
+    {
+      "id": "schema",
+      "title": {
+        "en": "Describe roles and relationships",
+        "ru": "Описание ролей и связей"
+      },
+      "lead": {
+        "en": "Declare the physical tables, their logical roles, and allowed columns. Relationships are directed and include every equality column required by the join.",
+        "ru": "Задайте физические таблицы, их логические роли и разрешённые колонки. Каждая связь имеет направление и содержит все пары колонок, необходимые для соединения."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "import io.github.alex59.relationalpaths.*;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.Set;",
+          "caption": {
+            "en": "Shared imports for every Java snippet below.",
+            "ru": "Общие импорты для всех Java-фрагментов ниже."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "The following snippets are method-body statements. The schema, planning, rendering, null, and limit examples build on the variables introduced earlier. The downloadable Example.java combines them into a complete program.",
+            "ru": "Следующие фрагменты размещаются внутри метода. Примеры схемы, планирования, SQL, null и лимитов используют переменные из предыдущих шагов. Скачиваемый Example.java объединяет их в полную программу."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "Schema schema = new Schema(List.of(\n    new Table(\"orders\", \"sales.orders\",\n        Set.of(\"id\", \"customer_id\", \"tenant_id\", \"region_id\")),\n    new Table(\"customer\", \"sales.customer\",\n        Set.of(\"id\", \"tenant_id\", \"region_id\", \"name\")),\n    new Table(\"region\", \"sales.region\", Set.of(\"id\", \"name\"))\n), List.of(\n    new Relationship(\"order_customer\", \"orders\", \"customer\", 1,\n        List.of(new ColumnPair(\"customer_id\", \"id\"),\n                new ColumnPair(\"tenant_id\", \"tenant_id\"))),\n    new Relationship(\"customer_region\", \"customer\", \"region\", 1,\n        List.of(new ColumnPair(\"region_id\", \"id\"))),\n    new Relationship(\"order_region\", \"orders\", \"region\", 5,\n        List.of(new ColumnPair(\"region_id\", \"id\")))\n));\nSystem.out.println(schema.tables().keySet());\nSystem.out.println(schema.relationship(\"order_customer\").columns().size());",
+          "caption": {
+            "en": "Declare three table roles and a two-column order-to-customer relationship.",
+            "ru": "Объявите три роли таблиц и связь заказа с покупателем по двум колонкам."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "[customer, orders, region]\n2",
+          "caption": {
+            "en": "Expected output: sorted roles and two equality pairs in the composite key.",
+            "ru": "Ожидаемый вывод: отсортированные роли и две пары колонок составного ключа."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Table.id is a logical role; Table.name is a physical table or schema.table. Multiple roles may refer to the same physical table.",
+              "ru": "Table.id — логическая роль; Table.name — физическая таблица или schema.table. Разные роли могут ссылаться на одну физическую таблицу."
+            },
+            {
+              "en": "The customer_id/id and tenant_id/tenant_id pairs are both emitted into the JOIN condition. The library does not infer missing foreign-key columns.",
+              "ru": "Пары customer_id/id и tenant_id/tenant_id обе попадут в условие JOIN. Библиотека не выводит отсутствующие колонки внешнего ключа автоматически."
+            },
+            {
+              "en": "Duplicate IDs, unknown endpoints, undeclared relationship columns, and nonpositive costs fail during metadata construction.",
+              "ru": "Повторяющиеся идентификаторы, неизвестные роли, необъявленные колонки связи и неположительные веса отклоняются при создании метаданных."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "planning",
+      "title": {
+        "en": "Plan weighted routes and inspect the result",
+        "ru": "Планирование маршрутов и объяснение результата"
+      },
+      "lead": {
+        "en": "Request every role needed by projections or filters. The planner chooses the unique minimum-cost route to each target and merges compatible shared prefixes.",
+        "ru": "Запросите все роли, нужные для выбранных полей и фильтров. Планировщик выбирает единственный маршрут минимальной стоимости к каждой цели и объединяет общие совместимые участки."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "JoinPlan plan = new JoinPlanner(schema)\n    .plan(\"orders\", List.of(\"customer\", \"region\"));\nSystem.out.println(plan.routes().get(\"region\"));\nSystem.out.println(plan.aliases());\nSystem.out.println(plan.joins().size());\nSystem.out.println(plan.explain());",
+          "caption": {
+            "en": "Continue with schema from the previous section.",
+            "ru": "Продолжение примера с переменной schema из предыдущего раздела."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "[order_customer, customer_region]\n{orders=t0, customer=t1, region=t2}\n2\nROOT orders AS t0\norder_customer: orders -> customer AS t1 cost=1 on orders.customer_id = customer.id AND orders.tenant_id = customer.tenant_id\ncustomer_region: customer -> region AS t2 cost=1 on customer.region_id = region.id",
+          "caption": {
+            "en": "Expected routes, aliases, join count, and explanation.",
+            "ru": "Ожидаемые маршруты, алиасы, число соединений и объяснение плана."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "The two-hop customer route costs 1 + 1, while the direct order_region edge costs 5. Two shared joins cover both requested targets.",
+              "ru": "Путь через покупателя стоит 1 + 1, а прямая связь order_region — 5. Два общих соединения покрывают обе запрошенные цели."
+            },
+            {
+              "en": "Positive integer costs describe a business preference. They are not estimates of database execution time or query cardinality.",
+              "ru": "Положительные целые веса задают предпочтение по смыслу данных. Они не оценивают время выполнения SQL или количество строк."
+            },
+            {
+              "en": "Aliases and plans are deterministic regardless of metadata or target input order. Results and nested route lists are immutable.",
+              "ru": "План и алиасы воспроизводимы независимо от порядка входных метаданных и целей. Результаты и вложенные списки маршрутов неизменяемы."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Scope of optimization",
+            "ru": "Граница оптимизации"
+          },
+          "text": {
+            "en": "The planner chooses per-target shortest paths. It is not a database optimizer and does not minimize the total cost of a shared join tree across all targets.",
+            "ru": "Планировщик выбирает кратчайший путь отдельно для каждой цели. Он не заменяет оптимизатор СУБД и не минимизирует суммарную стоимость общего дерева соединений."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ambiguity",
+      "title": {
+        "en": "Choose ambiguous links and use table roles",
+        "ru": "Выбор неоднозначных связей и роли таблиц"
+      },
+      "lead": {
+        "en": "Two equally cheap routes can represent different meanings. The planner reports the ambiguity instead of silently selecting billing or shipping.",
+        "ru": "Два пути одинаковой стоимости могут иметь разный смысл. Планировщик сообщает о неоднозначности, а не выбирает между платёжным адресом и адресом доставки без указания."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "Schema ambiguousSchema = new Schema(List.of(\n    new Table(\"orders\", \"orders\", Set.of(\"id\", \"billing_id\", \"shipping_id\")),\n    new Table(\"address\", \"address\", Set.of(\"id\", \"city\"))\n), List.of(\n    new Relationship(\"billing_ref\", \"orders\", \"address\", 1,\n        List.of(new ColumnPair(\"billing_id\", \"id\"))),\n    new Relationship(\"shipping_ref\", \"orders\", \"address\", 1,\n        List.of(new ColumnPair(\"shipping_id\", \"id\")))\n));\nJoinPlanner addressPlanner = new JoinPlanner(ambiguousSchema);\ntry {\n    addressPlanner.plan(\"orders\", List.of(\"address\"));\n    throw new AssertionError(\"Expected an ambiguous path\");\n} catch (AmbiguousPathException error) {\n    System.out.println(error.target());\n    System.out.println(error.candidates());\n}\nJoinPlan shippingPlan = addressPlanner.plan(\"orders\", List.of(\"address\"),\n    Map.of(\"address\", List.of(\"shipping_ref\")));\nSystem.out.println(shippingPlan.routes().get(\"address\"));",
+          "caption": {
+            "en": "An independent schema: inspect two witness routes, then explicitly choose shipping_ref.",
+            "ru": "Независимая схема: посмотрите два варианта пути, затем явно выберите shipping_ref."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "address\n[[billing_ref], [shipping_ref]]\n[shipping_ref]",
+          "caption": {
+            "en": "Expected target, ambiguity witnesses, and selected route.",
+            "ru": "Ожидаемые цель, варианты неоднозначного пути и выбранный маршрут."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "candidates() returns two deterministic witness paths, not every possible route. Explicit relationship-ID paths may be longer than the shortest path, but must start at the root, end at their target, and never repeat a logical role.",
+            "ru": "candidates() возвращает два воспроизводимых примера пути, а не все возможные маршруты. Явный путь из идентификаторов связей может быть длиннее кратчайшего, но обязан начинаться в корне, заканчиваться в своей цели и не повторять логические роли."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "Schema addressRoles = new Schema(List.of(\n    new Table(\"orders\", \"orders\", Set.of(\"id\", \"billing_id\", \"shipping_id\")),\n    new Table(\"billing\", \"address\", Set.of(\"id\", \"city\")),\n    new Table(\"shipping\", \"address\", Set.of(\"id\", \"city\"))\n), List.of(\n    new Relationship(\"billing_ref\", \"orders\", \"billing\", 1,\n        List.of(new ColumnPair(\"billing_id\", \"id\"))),\n    new Relationship(\"shipping_ref\", \"orders\", \"shipping\", 1,\n        List.of(new ColumnPair(\"shipping_id\", \"id\")))\n));\nJoinPlan twoAddresses = new JoinPlanner(addressRoles)\n    .plan(\"orders\", List.of(\"shipping\", \"billing\"));\nSystem.out.println(twoAddresses.aliases());",
+          "caption": {
+            "en": "To join both addresses, use two logical roles for the same physical table. This is a separate, independent schema.",
+            "ru": "Чтобы присоединить оба адреса, задайте две логические роли одной физической таблицы. Это отдельная независимая схема."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "{orders=t0, billing=t1, shipping=t2}",
+          "caption": {
+            "en": "Expected aliases: the same physical address table has two independent roles.",
+            "ru": "Ожидаемые алиасы: одна физическая таблица address используется в двух независимых ролях."
+          }
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Conflicting routes",
+            "ru": "Противоречивые маршруты"
+          },
+          "text": {
+            "en": "If paths to different targets enter the same role through different relationships, planning fails. Align the paths or model separate roles; the library will not silently duplicate a role or change its meaning.",
+            "ru": "Если пути к разным целям входят в одну роль через разные связи, построение плана завершится ошибкой. Согласуйте маршруты или задайте отдельные роли: библиотека не дублирует роль и не меняет её смысл автоматически."
+          }
+        }
+      ]
+    },
+    {
+      "id": "sql",
+      "title": {
+        "en": "Render SELECT queries with bound values",
+        "ru": "Формирование SELECT с параметрами"
+      },
+      "lead": {
+        "en": "SqlRenderer turns a validated plan into an INNER JOIN SELECT. Identifiers come from declared metadata; filter values remain separate from SQL text.",
+        "ru": "SqlRenderer превращает проверенный план в SELECT с INNER JOIN. Идентификаторы берутся из объявленных метаданных, а значения фильтров хранятся отдельно от текста SQL."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "BoundSql query = SqlRenderer.select(plan,\n    List.of(new ColumnRef(\"orders\", \"id\"), new ColumnRef(\"region\", \"name\")),\n    List.of(new Filter(new ColumnRef(\"customer\", \"name\"),\n        Filter.Operator.EQ, \"Alice' OR 1=1 --\")));\nSystem.out.println(query.sql());\nSystem.out.println(query.bindings());",
+          "caption": {
+            "en": "Reuse plan from the weighted-route example. The hostile-looking string is deliberately treated as an ordinary value.",
+            "ru": "Используйте plan из примера взвешенных маршрутов. Строка, похожая на SQL-инъекцию, намеренно передаётся как обычное значение."
+          }
+        },
+        {
+          "type": "code",
+          "language": "sql",
+          "code": "SELECT \"t0\".\"id\" AS \"c0\", \"t2\".\"name\" AS \"c1\" FROM \"sales\".\"orders\" AS \"t0\" INNER JOIN \"sales\".\"customer\" AS \"t1\" ON \"t0\".\"customer_id\" = \"t1\".\"id\" AND \"t0\".\"tenant_id\" = \"t1\".\"tenant_id\" INNER JOIN \"sales\".\"region\" AS \"t2\" ON \"t1\".\"region_id\" = \"t2\".\"id\" WHERE \"t1\".\"name\" = ?",
+          "caption": {
+            "en": "Expected SQL. The output string is one line; selected columns have aliases c0 and c1.",
+            "ru": "Ожидаемый SQL. Строка результата однострочная; выбранные колонки имеют алиасы c0 и c1."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "[Alice' OR 1=1 --]",
+          "caption": {
+            "en": "Expected bindings. No part of this string is inserted into query.sql().",
+            "ru": "Ожидаемые параметры. Ни одна часть этой строки не подставляется в query.sql()."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Execute query.sql() with your own JDBC PreparedStatement. Bind query.bindings() in list order, starting from JDBC index 1. Use driver-appropriate value conversion; never concatenate the values into SQL. This example does not open a database connection.",
+            "ru": "Выполняйте query.sql() через собственный JDBC PreparedStatement. Передавайте query.bindings() в порядке списка, начиная с JDBC-индекса 1. Учитывайте типы значений конкретного драйвера и не склеивайте значения с SQL. Этот пример не открывает соединение с базой."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "BoundSql nullQuery = SqlRenderer.select(plan,\n    List.of(new ColumnRef(\"customer\", \"id\")),\n    List.of(new Filter(new ColumnRef(\"customer\", \"name\"), Filter.Operator.EQ, null)));\nSystem.out.println(nullQuery.sql().endsWith(\"WHERE \\\"t1\\\".\\\"name\\\" IS NULL\"));\nSystem.out.println(nullQuery.bindings());",
+          "caption": {
+            "en": "Reuse the same plan. EQ null renders IS NULL without a bound parameter.",
+            "ru": "Используйте тот же plan. EQ null превращается в IS NULL без параметра."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "true\n[]",
+          "caption": {
+            "en": "Expected suffix check and empty bindings.",
+            "ru": "Ожидаемый результат проверки окончания SQL и пустой список параметров."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Filters are AND-combined. Supported operators: EQ, NE, LT, LE, GT, GE. NE null becomes IS NOT NULL; ordered comparisons with null are rejected.",
+              "ru": "Фильтры объединяются через AND. Поддерживаются EQ, NE, LT, LE, GT, GE. NE null превращается в IS NOT NULL; сравнения порядка с null отклоняются."
+            },
+            {
+              "en": "Projected and filtered columns must be declared and their roles must be present in the plan. Names use ASCII identifiers; physical names are table or schema.table.",
+              "ru": "Выбранные и фильтруемые колонки должны быть объявлены, а их роли — присутствовать в плане. Имена используют ASCII-идентификаторы; физические имена имеют вид table или schema.table."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Authorization and SQL semantics",
+            "ru": "Права доступа и смысл SQL"
+          },
+          "text": {
+            "en": "An allowlist prevents undeclared identifiers, but does not implement user permissions or row-level access control. INNER JOIN can exclude unmatched rows or multiply to-many results. The application owns authorization, transactions, and cardinality decisions.",
+            "ru": "Список разрешённых колонок запрещает неизвестные идентификаторы, но не реализует права пользователя и построчный доступ. INNER JOIN может исключать строки без соответствия или размножать строки связи один-ко-многим. Приложение отвечает за доступ, транзакции и ожидаемую кратность результата."
+          }
+        }
+      ]
+    },
+    {
+      "id": "contracts",
+      "title": {
+        "en": "Limits, failures, and guarantees",
+        "ru": "Лимиты, ошибки и гарантии"
+      },
+      "lead": {
+        "en": "The planner fails explicitly when it cannot produce a valid answer. It never returns a partial route merely to fit a configured search limit.",
+        "ru": "Если корректный результат получить нельзя, планировщик возвращает явную ошибку. Он не выдаёт неполный маршрут только ради соблюдения лимита поиска."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "try {\n    new JoinPlanner(schema, new SearchLimits(10, 10, 0))\n        .plan(\"orders\", List.of(\"customer\"));\n    throw new AssertionError(\"Expected the edge-visit limit\");\n} catch (PlanningException error) {\n    System.out.println(error.getMessage());\n}",
+          "caption": {
+            "en": "Continue with schema from the schema section. Zero allowed edge visits intentionally forces an error.",
+            "ru": "Продолжение примера с исходной schema. Нулевой лимит просмотра рёбер намеренно вызывает ошибку."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "Search exceeded maxEdgeVisits=0",
+          "caption": {
+            "en": "Expected PlanningException message.",
+            "ru": "Ожидаемое сообщение PlanningException."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Default bounds: 512 table roles, 8,192 relationships, and 8,192 edge visits per automatic search. Search examines every reachable role, even if the requested target is nearby.",
+              "ru": "Лимиты по умолчанию: 512 ролей таблиц, 8192 связи и 8192 просмотра рёбер за автоматический поиск. Поиск просматривает все достижимые роли, даже если запрошенная цель находится рядом."
+            },
+            {
+              "en": "Dijkstra search retains at most two witness paths per role. Complete stored paths can consume O(V²) references in a chain; this is not a constant-memory planner.",
+              "ru": "Поиск Дейкстры хранит не более двух примеров пути на роль. Полные сохранённые пути могут занимать O(V²) ссылок в цепочке; планировщик не обещает постоянного объёма памяти."
+            },
+            {
+              "en": "Metadata cycles are safe because weights are positive. An explicit route that revisits a logical role is rejected; use distinct roles for repeated physical tables.",
+              "ru": "Циклы в метаданных допустимы благодаря положительным весам. Явный маршрут с повторным посещением логической роли отклоняется; для повторных физических таблиц задавайте разные роли."
+            },
+            {
+              "en": "Schema, JoinPlanner, and JoinPlan are immutable and shareable across threads. Filter values and BoundSql binding values are retained by reference; supply immutable values or manage their lifecycle yourself.",
+              "ru": "Schema, JoinPlanner и JoinPlan неизменяемы и могут использоваться разными потоками. Значения Filter и параметры BoundSql сохраняются по ссылке; используйте неизменяемые значения или управляйте их жизненным циклом самостоятельно."
+            },
+            {
+              "en": "No database introspection, outer joins, aggregation, subqueries, query execution, or globally optimal join-tree solver is included. Another renderer can consume JoinPlan.",
+              "ru": "В библиотеку не входят чтение схемы из СУБД, внешние соединения, агрегации, подзапросы, выполнение SQL и поиск глобально оптимального дерева соединений. JoinPlan можно передать собственному генератору запросов."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Failure types",
+            "ru": "Типы ошибок"
+          },
+          "text": {
+            "en": "AmbiguousPathException extends PlanningException. PlanningException extends IllegalArgumentException. Unknown tables or columns and invalid metadata also use IllegalArgumentException; mutation of immutable results throws UnsupportedOperationException.",
+            "ru": "AmbiguousPathException наследует PlanningException, а PlanningException — IllegalArgumentException. Неизвестные таблицы или колонки и некорректные метаданные также вызывают IllegalArgumentException; попытка изменить неизменяемый результат вызывает UnsupportedOperationException."
+          }
+        }
+      ]
+    },
+    {
+      "id": "example",
+      "title": {
+        "en": "Run the complete example and troubleshoot",
+        "ru": "Запуск полного примера и решение проблем"
+      },
+      "lead": {
+        "en": "Download Example.java and run it against the locally built JAR. It checks the documented routes, aliases, SQL, bindings, null behavior, limits, and immutable results without a database.",
+        "ru": "Скачайте Example.java и запустите его с локально собранным JAR. Пример проверяет описанные маршруты, алиасы, SQL, параметры, обработку null, лимиты и неизменяемость результатов без базы данных."
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "text": {
+            "en": "Run these commands from the directory containing the downloaded Example.java. Replace /path/to/relational-paths with your checkout path. The commands below use Unix classpath separators; on Windows replace the colon in the classpath with a semicolon.",
+            "ru": "Выполняйте команды из каталога со скачанным Example.java. Замените /path/to/relational-paths путём к вашим исходникам. Ниже используется разделитель classpath для Unix; в Windows замените двоеточие в classpath на точку с запятой."
+          }
+        },
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "LIB=/path/to/relational-paths/build/libs/relational-paths-0.3.0.jar\nmkdir -p /tmp/relational-paths-example\njavac --release 17 -cp \"$LIB\" -d /tmp/relational-paths-example Example.java\njava -cp \"/tmp/relational-paths-example:$LIB\" Example",
+          "caption": {
+            "en": "Compile and run the downloadable file using JDK 17 or a supported newer JDK.",
+            "ru": "Скомпилируйте и запустите скачанный файл на JDK 17 или поддерживаемой более новой версии."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "allowlist, null rules and immutable results: OK\nALL CHECKS PASSED",
+          "caption": {
+            "en": "Expected final lines. Earlier lines reproduce the outputs shown above.",
+            "ru": "Ожидаемые последние строки. Предыдущие строки повторяют результаты из разделов выше."
+          }
+        },
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "./gradlew clean build -PtestJavaVersion=17\n./gradlew clean build -PtestJavaVersion=21\n./gradlew clean build -PtestJavaVersion=25\n./gradlew clean build -PtestJavaVersion=27",
+          "caption": {
+            "en": "Optional: run the library tests and its bundled example from the library checkout. Each selected JDK must be installed and discoverable by Gradle.",
+            "ru": "Дополнительно: выполните тесты библиотеки и встроенный пример из каталога её исходников. Каждый выбранный JDK должен быть установлен и доступен Gradle."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Could not find io.github.59alex:relational-paths:0.3.0 → build and publishToMavenLocal the matching version, then add mavenLocal to the consumer.",
+              "ru": "Could not find io.github.59alex:relational-paths:0.3.0 → соберите нужную версию, выполните publishToMavenLocal и добавьте mavenLocal в проект потребителя."
+            },
+            {
+              "en": "Ambiguous path to address → inspect candidates(), select an explicit relationship route, or separate billing and shipping roles.",
+              "ru": "Ambiguous path to address → посмотрите candidates(), выберите явный путь связей или разделите роли billing и shipping."
+            },
+            {
+              "en": "No directed path from ... → check relationship direction. Reverse traversal must be declared explicitly when meaningful.",
+              "ru": "No directed path from ... → проверьте направление связей. Обратное направление нужно объявить явно, если оно допустимо по смыслу данных."
+            },
+            {
+              "en": "Table is absent from plan → add the role required by the projection or filter to the plan targets.",
+              "ru": "Table is absent from plan → добавьте роль выбранной колонки или фильтра в список целей плана."
+            },
+            {
+              "en": "Undeclared column → add an authorized column to metadata or correct the ColumnRef. Do not bypass access checks by accepting arbitrary identifiers.",
+              "ru": "Undeclared column → добавьте разрешённую колонку в метаданные или исправьте ColumnRef. Не обходите проверку доступа приёмом произвольных идентификаторов."
+            },
+            {
+              "en": "Search exceeded maxEdgeVisits → reduce the input schema or deliberately raise SearchLimits after checking memory and latency with your workload.",
+              "ru": "Search exceeded maxEdgeVisits → уменьшите входную схему или осознанно увеличьте SearchLimits после проверки памяти и задержки на своей нагрузке."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "What was verified",
+            "ru": "Что проверено"
+          },
+          "text": {
+            "en": "The downloadable file was compiled with --release 17 and executed on a real Java 17 JVM against the 0.3.0 library JAR. It checks generated SQL strings and binding values; it does not execute a live database query or measure throughput.",
+            "ru": "Скачиваемый файл скомпилирован с --release 17 и выполнен на настоящей JVM Java 17 с JAR библиотеки 0.3.0. Он проверяет строки SQL и значения параметров, но не выполняет запрос к живой базе и не измеряет производительность."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -26,16 +26,16 @@ I build libraries for data processing and reliable distributed applications: mod
 
 <sub>Libraries are licensed under MIT.</sub>
 
-**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 27 · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
 Builds explainable JOIN plans from relational metadata. Ambiguous relationships require an explicit choice, so dynamic queries follow the intended data model.
 
-**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 27 / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
 Coordinates background tasks across workers through expiring leases. Atomic claims, heartbeats and retries support recovery; a stale worker cannot complete a task after losing its lease.
 
-**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 27 · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
 Compares model snapshots by stable keys and selected fields. Produces ordered additions, removals and field changes for schema reviews, synchronization and change reports.
 
-**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 27 / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
+**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 17+ / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
 Composes asynchronous processing steps with bounded concurrency, timeouts and cancellation. Retries apply to the failing step; an optional Jolt adapter transforms JSON records.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
@@ -75,16 +75,16 @@ SSE reconnection from the last processed event, followed by a transition to the 
 
 <sub>Библиотеки защищены лицензией MIT.</sub>
 
-**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 27 · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
 Строит объяснимый план JOIN по метаданным связей между таблицами. При неоднозначности требует явно выбрать связь, чтобы динамический запрос соответствовал смыслу модели данных.
 
-**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 27 / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java 17+ / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
 Распределяет фоновые задачи между воркерами с помощью аренды на ограниченное время. Атомарный захват, продление аренды и повторы помогают восстановить обработку после сбоя; старый воркер не сможет завершить задачу после потери аренды.
 
-**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 27 · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java 17+ · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
 Сравнивает снимки моделей по стабильным ключам и выбранным полям. Возвращает упорядоченные добавления, удаления и изменения полей для проверки схем, синхронизации и отчётов об изменениях.
 
-**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 27 / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
+**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 17+ / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
 Объединяет асинхронные шаги обработки с ограниченной конкурентностью, тайм-аутами и отменой. Повторяется только сбойный шаг; отдельный адаптер Jolt преобразует JSON-записи.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>

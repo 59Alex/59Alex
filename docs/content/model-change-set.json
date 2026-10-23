@@ -1,0 +1,471 @@
+{
+  "id": "model-change-set",
+  "name": "model-change-set",
+  "version": "0.3.0",
+  "runtime": "Java 17+",
+  "repo": "https://github.com/59Alex/model-change-set",
+  "summary": {
+    "en": "Compare keyed model snapshots with explicit field policies. Receive deterministic additions, removals, and modifications, or merge sorted inputs one change at a time.",
+    "ru": "Сравнивайте снимки моделей по стабильному ключу и явно заданным правилам полей. Получайте упорядоченные добавления, удаления и изменения либо обрабатывайте отсортированные источники по одному изменению."
+  },
+  "sections": [
+    {
+      "id": "setup",
+      "title": {
+        "en": "1. Install and prepare the example",
+        "ru": "1. Установка и подготовка примера"
+      },
+      "lead": {
+        "en": "Use a complete JDK 17 or newer. Supported runtimes are LTS 17, 21, 25 and non-LTS 27. The library has no runtime dependencies.",
+        "ru": "Нужен полный JDK 17 или новее. Поддерживаются LTS-версии 17, 21, 25 и non-LTS Java 27. У библиотеки нет зависимостей времени выполнения."
+      },
+      "blocks": [
+        {
+          "type": "note",
+          "title": {
+            "en": "Local artifact, not a Central release",
+            "ru": "Локальный артефакт, не релиз в Central"
+          },
+          "text": {
+            "en": "The commands below build the source and install version 0.3.0 in your local Maven repository. These coordinates do not imply that an artifact is available from Maven Central.",
+            "ru": "Команды ниже собирают исходники и устанавливают версию 0.3.0 в локальный Maven-репозиторий. Наличие координат не означает, что артефакт опубликован в Maven Central."
+          }
+        },
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "git clone https://github.com/59Alex/model-change-set.git\ncd model-change-set\n./gradlew build publishToMavenLocal -PtestJavaVersion=17",
+          "caption": {
+            "en": "Run from a checkout containing version 0.3.0; Gradle needs access to its distribution and build dependencies.",
+            "ru": "Запустите в копии исходников версии 0.3.0; Gradle нужен доступ к своему дистрибутиву и зависимостям сборки."
+          }
+        },
+        {
+          "type": "code",
+          "language": "kotlin",
+          "code": "repositories {\n    mavenLocal()\n    mavenCentral()\n}\ndependencies {\n    implementation(\"io.github.59alex:model-change-set:0.3.0\")\n}",
+          "caption": {
+            "en": "Add to the consuming application's build.gradle.kts after local installation.",
+            "ru": "Добавьте в build.gradle.kts приложения после локальной установки."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "The Java snippets below form one tutorial: add the imports before your Example class, declare Column inside the class, and run the snippets in order inside its main method. Later sections explicitly reuse differ, before, after, fields, and changes from section 2. The downloadable Example.java already combines all snippets.",
+            "ru": "Java-фрагменты ниже образуют одно руководство: добавьте импорты перед классом Example, объявите Column внутри класса, а выполняемый код разместите по порядку в методе main. Следующие разделы явно используют differ, before, after, fields и changes из раздела 2. Скачиваемый Example.java уже объединяет все фрагменты."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "import io.github.alex59.modelchanges.Change;\nimport io.github.alex59.modelchanges.ChangeSet;\nimport io.github.alex59.modelchanges.ChangeType;\nimport io.github.alex59.modelchanges.Field;\nimport io.github.alex59.modelchanges.ModelDiffer;\nimport java.math.BigDecimal;\nimport java.util.ArrayList;\nimport java.util.Collections;\nimport java.util.Comparator;\nimport java.util.List;\n\n// Declare this record inside your Example class.\nrecord Column(String key, String type, boolean nullable) {}",
+          "caption": {
+            "en": "Shared imports and model declaration. The key remains stable across snapshots.",
+            "ru": "Общие импорты и модель. Ключ сохраняет значение между снимками."
+          }
+        },
+        {
+          "type": "text",
+          "text": {
+            "en": "Downloadable file: examples/model-change-set/Example.java. It uses only the library jar and the JDK; section 7 shows how to compile and run it.",
+            "ru": "Файл для скачивания: examples/model-change-set/Example.java. Нужны только jar библиотеки и JDK; команды компиляции и запуска приведены в разделе 7."
+          }
+        }
+      ]
+    },
+    {
+      "id": "snapshots",
+      "title": {
+        "en": "2. Compare snapshots and control ordering",
+        "ru": "2. Сравнение снимков и порядок результата"
+      },
+      "lead": {
+        "en": "Choose a stable key, a total key comparator, and the fields that define a meaningful change. Input collections can arrive in any order.",
+        "ru": "Выберите стабильный ключ, полный порядок ключей и поля, изменение которых важно для вашей задачи. Входные коллекции могут быть в любом порядке."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "List<Field<Column, ?>> fields = List.of(\n    Field.of(\"type\", Column::type),\n    Field.of(\"nullable\", Column::nullable)\n);\nvar differ = ModelDiffer.<Column, String>of(\n    Column::key, Comparator.naturalOrder(), fields\n);\nvar before = List.of(\n    new Column(\"orders.note\", \"text\", true),\n    new Column(\"orders.id\", \"bigint\", false),\n    new Column(\"orders.legacy\", \"text\", true)\n);\nvar after = List.of(\n    new Column(\"orders.id\", \"bigint\", false),\n    new Column(\"orders.created_at\", \"timestamp\", false),\n    new Column(\"orders.note\", \"text\", false)\n);\nvar changes = differ.compare(before, after);\nchanges.changes().forEach(change -> {\n    System.out.println(change.type() + \" \" + change.key());\n    change.fields().forEach(field -> System.out.println(\n        \"  \" + field.name() + \": \" + field.before() + \" -> \" + field.after()\n    ));\n});",
+          "caption": {
+            "en": "After the shared declarations from section 1, place this code inside main.",
+            "ru": "После общих объявлений из раздела 1 поместите код внутрь main."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "ADDED orders.created_at\nREMOVED orders.legacy\nMODIFIED orders.note\n  nullable: true -> false",
+          "caption": {
+            "en": "Expected output. The unchanged orders.id is omitted.",
+            "ru": "Ожидаемый вывод. Неизменённый orders.id отсутствует в отчёте."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "ADDED means the key occurs only in after. before is null, after contains the complete model, and fields is empty.",
+              "ru": "ADDED означает, что ключ есть только в after. before равен null, after содержит модель целиком, fields пуст."
+            },
+            {
+              "en": "REMOVED means the key occurs only in before. after is null and fields is empty.",
+              "ru": "REMOVED означает, что ключ есть только в before. after равен null, fields пуст."
+            },
+            {
+              "en": "MODIFIED means the key occurs in both snapshots and at least one configured field differs. FieldChange holds the field name and original before/after values.",
+              "ru": "MODIFIED означает, что ключ есть в обоих снимках и хотя бы одно настроенное поле отличается. FieldChange содержит имя поля и исходные значения before/after."
+            },
+            {
+              "en": "Changes follow the key comparator. Changed fields follow their definition order. Renaming a key appears as a removal plus an addition.",
+              "ru": "Изменения упорядочены компаратором ключей. Изменённые поля идут в порядке их объявления. Смена ключа отображается как удаление и добавление."
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "var reorderedBefore = new ArrayList<>(before);\nCollections.reverse(reorderedBefore);\nSystem.out.println(\"same report=\" + changes.equals(\n    differ.compare(reorderedBefore, after)\n));\nvar reverseDiffer = ModelDiffer.<Column, String>of(\n    Column::key, Comparator.reverseOrder(), fields\n);\nSystem.out.println(\"descending=\" + reverseDiffer.compare(before, after)\n    .changes().stream().map(Change::key).toList());",
+          "caption": {
+            "en": "Reuses before, after, fields, and changes above. Reordering input leaves the report unchanged; a different comparator changes report order.",
+            "ru": "Использует before, after, fields и changes выше. Перестановка входных данных не меняет отчёт; другой компаратор меняет порядок отчёта."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "same report=true\ndescending=[orders.note, orders.legacy, orders.created_at]",
+          "caption": {
+            "en": "Expected output.",
+            "ru": "Ожидаемый вывод."
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-policies",
+      "title": {
+        "en": "3. Define equality and handle nulls",
+        "ru": "3. Правила равенства и null"
+      },
+      "lead": {
+        "en": "Field.of uses Objects.deepEquals: it supports nulls and array contents; other values use their own equals method. Field.comparing lets the domain decide what counts as equal.",
+        "ru": "Field.of использует Objects.deepEquals: поддерживает null и содержимое массивов; другие значения сравниваются их методом equals. Field.comparing позволяет задать предметное правило равенства."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "record Price(String key, BigDecimal amount) {}\nvar amount = Field.<Price, BigDecimal>comparing(\n    \"amount\", Price::amount,\n    (a, b) -> a == null ? b == null\n        : b != null && a.compareTo(b) == 0\n);\nvar priceDiffer = ModelDiffer.<Price, String>of(\n    Price::key, Comparator.naturalOrder(), List.of(amount)\n);\nSystem.out.println(\"field=\" + amount.name());\nSystem.out.println(\"same amount=\" + priceDiffer.compare(\n    List.of(new Price(\"price\", new BigDecimal(\"1.0\"))),\n    List.of(new Price(\"price\", new BigDecimal(\"1.00\")))\n).isEmpty());\nvar priceChange = priceDiffer.compare(\n    List.of(new Price(\"price\", null)),\n    List.of(new Price(\"price\", new BigDecimal(\"1.00\")))\n).modified().get(0).fields().get(0);\nSystem.out.println(priceChange.name() + \": \"\n    + priceChange.before() + \" -> \" + priceChange.after());",
+          "caption": {
+            "en": "Uses the shared imports. Price is a separate local record; monetary scale is ignored, but null remains distinct from a number.",
+            "ru": "Использует общие импорты. Price — отдельный локальный record; масштаб числа не учитывается, но null отличается от числа."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "field=amount\nsame amount=true\namount: null -> 1.00",
+          "caption": {
+            "en": "Expected output. Reports preserve original values; the equality policy does not normalize them.",
+            "ru": "Ожидаемый вывод. В отчёт попадают исходные значения; правило равенства их не нормализует."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "var nullToEmpty = differ.compare(\n    List.of(new Column(\"note\", null, true)),\n    List.of(new Column(\"note\", \"\", true))\n);\nvar absentToNull = differ.compare(\n    List.of(), List.of(new Column(\"note\", null, true))\n);\nSystem.out.println(\"null-to-empty modified=\" + nullToEmpty.modified().size());\nSystem.out.println(\"absent-to-null added=\" + absentToNull.added().size());\n\nrecord Blob(String key, byte[] bytes) {}\nvar blobDiffer = ModelDiffer.<Blob, String>of(\n    Blob::key, Comparator.naturalOrder(), List.of(Field.of(\"bytes\", Blob::bytes))\n);\nSystem.out.println(\"equal arrays=\" + blobDiffer.compare(\n    List.of(new Blob(\"blob\", new byte[] {1, 2})),\n    List.of(new Blob(\"blob\", new byte[] {1, 2}))\n).isEmpty());",
+          "caption": {
+            "en": "Reuses differ from section 2, then creates an independent array-valued model.",
+            "ru": "Использует differ из раздела 2, затем создаёт отдельную модель с массивом."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "null-to-empty modified=1\nabsent-to-null added=1\nequal arrays=true",
+          "caption": {
+            "en": "Expected output: a null field is not an absent model or an empty string.",
+            "ru": "Ожидаемый вывод: поле null не равно отсутствующей модели или пустой строке."
+          }
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Callback contract",
+            "ru": "Контракт функций"
+          },
+          "text": {
+            "en": "Custom equivalence receives nulls unchanged. Extractors and policies should be pure and stable; if you share a differ across threads, its callbacks and input data must also be safe to share. Default equality does not recursively discover arbitrary model fields.",
+            "ru": "Пользовательское правило получает null без преобразования. Функции извлечения и сравнения должны быть чистыми и стабильными; при совместном использовании differ между потоками функции и данные также должны допускать это. Стандартное сравнение не обнаруживает рекурсивно произвольные поля модели."
+          }
+        }
+      ]
+    },
+    {
+      "id": "membership",
+      "title": {
+        "en": "4. Filter results and compare membership",
+        "ru": "4. Фильтры результата и сравнение состава"
+      },
+      "lead": {
+        "en": "Use added, removed, modified, and isEmpty to choose the next application action. An empty field list compares identities only; an explicit subset ignores irrelevant fields.",
+        "ru": "Используйте added, removed, modified и isEmpty, чтобы выбрать следующее действие приложения. Пустой список полей сравнивает только состав ключей; заданное подмножество исключает несущественные поля."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "System.out.println(\"added=\" + changes.added().stream().map(Change::key).toList());\nSystem.out.println(\"removed=\" + changes.removed().stream().map(Change::key).toList());\nSystem.out.println(\"modified=\" + changes.modified().stream().map(Change::key).toList());\nSystem.out.println(\"has changes=\" + !changes.isEmpty());\n\nvar membershipOnly = ModelDiffer.<Column, String>of(\n    Column::key, Comparator.naturalOrder(), List.of()\n);\nSystem.out.println(\"membership changes=\" + membershipOnly.compare(before, after)\n    .changes().size());\nSystem.out.println(\"same identity=\" + membershipOnly.compare(\n    List.of(new Column(\"id\", \"int\", true)),\n    List.of(new Column(\"id\", \"bigint\", false))\n).isEmpty());\n\nvar typeOnly = ModelDiffer.<Column, String>of(\n    Column::key, Comparator.naturalOrder(), List.of(Field.of(\"type\", Column::type))\n);\nSystem.out.println(\"ignored nullable=\" + typeOnly.compare(\n    List.of(new Column(\"id\", \"int\", true)),\n    List.of(new Column(\"id\", \"int\", false))\n).isEmpty());",
+          "caption": {
+            "en": "Reuses changes, before, and after from section 2. Each filtered result is an unmodifiable list in key order.",
+            "ru": "Использует changes, before и after из раздела 2. Каждый отфильтрованный результат — неизменяемый список в порядке ключей."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "added=[orders.created_at]\nremoved=[orders.legacy]\nmodified=[orders.note]\nhas changes=true\nmembership changes=2\nsame identity=true\nignored nullable=true",
+          "caption": {
+            "en": "Expected output. The identity-only comparison excludes the nullable modification.",
+            "ru": "Ожидаемый вывод. Сравнение только по составу ключей исключает изменение nullable."
+          }
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Container immutability is not a deep copy",
+            "ru": "Неизменяемая коллекция не означает глубокую копию"
+          },
+          "text": {
+            "en": "ChangeSet copies its list, and Change copies its field list. Models, keys, and field values remain references to caller-owned objects. Use immutable snapshots if you retain a report for later review.",
+            "ru": "ChangeSet копирует список изменений, Change — список полей. Модели, ключи и значения полей остаются ссылками на объекты вызывающего кода. Используйте неизменяемые снимки, если сохраняете отчёт для последующего просмотра."
+          }
+        }
+      ]
+    },
+    {
+      "id": "sorted-merge",
+      "title": {
+        "en": "5. Merge sorted sources incrementally",
+        "ru": "5. Последовательное сравнение отсортированных источников"
+      },
+      "lead": {
+        "en": "compareSorted accepts two iterators whose keys are strictly increasing under the same comparator, then calls a synchronous consumer for each change. It does not index both snapshots.",
+        "ru": "compareSorted принимает два итератора со строго возрастающими ключами по тому же компаратору и синхронно передаёт каждое изменение обработчику. Оба снимка целиком не индексируются."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "var emitted = new ArrayList<Change<Column, String>>();\ndiffer.compareSorted(\n    before.stream().sorted(Comparator.comparing(Column::key)).iterator(),\n    after.stream().sorted(Comparator.comparing(Column::key)).iterator(),\n    emitted::add\n);\nSystem.out.println(\"same merge=\" + changes.equals(new ChangeSet<>(emitted)));\n\nvar prefix = new ArrayList<String>();\ntry {\n    differ.compareSorted(\n        List.of(\n            new Column(\"b\", \"int\", false),\n            new Column(\"a\", \"int\", false)\n        ).iterator(),\n        Collections.emptyIterator(),\n        change -> prefix.add(change.key())\n    );\n} catch (IllegalArgumentException failure) {\n    System.out.println(failure.getMessage());\n}\nSystem.out.println(\"emitted prefix=\" + prefix);",
+          "caption": {
+            "en": "Reuses differ, before, after, and changes. The first part sorts small in-memory lists for the demonstration; the second deliberately supplies invalid order.",
+            "ru": "Использует differ, before, after и changes. В первой части небольшие списки сортируются в памяти для примера; во второй порядок намеренно нарушен."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "same merge=true\nKeys in before are not strictly increasing: b then a\nemitted prefix=[b]",
+          "caption": {
+            "en": "Expected output. The removal for b was emitted before the next key revealed the invalid order.",
+            "ru": "Ожидаемый вывод. Удаление b было выдано до того, как следующий ключ обнаружил нарушение порядка."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "For a large database snapshot, provide a genuinely ordered cursor instead of sorting an unbounded stream in memory. The library does not execute SQL or manage database snapshots.",
+              "ru": "Для большого снимка БД передавайте действительно упорядоченный курсор вместо сортировки неограниченного потока в памяти. Библиотека не выполняет SQL и не управляет снимками БД."
+            },
+            {
+              "en": "The merge retains one current model from each source and one change. A collector such as emitted::add retains the whole report; use a sink that does not retain it when memory is the concern.",
+              "ru": "Слияние удерживает одну текущую модель из каждого источника и одно изменение. Сборщик вроде emitted::add сохраняет весь отчёт; если важна память, используйте обработчик без накопления результата."
+            },
+            {
+              "en": "A late duplicate, descending key, field callback failure, or consumer exception can leave an emitted prefix. Consumer exceptions stop processing immediately and propagate.",
+              "ru": "Поздний дубликат, нарушение порядка, ошибка функции поля или обработчика могут оставить уже выданную часть результата. Исключение обработчика немедленно останавливает работу и передаётся вызывающему коду."
+            },
+            {
+              "en": "The caller closes iterators and database cursors. The library does not create a transaction, roll back consumer side effects, start threads, or apply reactive backpressure.",
+              "ru": "Итераторы и курсоры БД закрывает вызывающий код. Библиотека не создаёт транзакцию, не откатывает действия обработчика, не запускает потоки и не реализует реактивное управление спросом."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Complete report or incremental output",
+            "ru": "Полный отчёт или постепенная выдача"
+          },
+          "text": {
+            "en": "Use compare when the caller should receive one complete ChangeSet or an exception. Use compareSorted when ordered input and incremental output matter. Neither option makes user callbacks transactional.",
+            "ru": "Выбирайте compare, когда вызывающий код должен получить полный ChangeSet либо исключение. Выбирайте compareSorted, когда нужны упорядоченный вход и постепенная выдача. Ни один вариант не делает пользовательские функции транзакционными."
+          }
+        }
+      ]
+    },
+    {
+      "id": "contracts",
+      "title": {
+        "en": "6. Validate identities and understand limits",
+        "ru": "6. Проверка ключей и границы поведения"
+      },
+      "lead": {
+        "en": "Duplicate keys and ambiguous comparators fail explicitly. The comparison direction and change shape remain visible in every result.",
+        "ru": "Дубликаты ключей и неоднозначный компаратор приводят к явной ошибке. Направление сравнения и форма изменения остаются видимыми в каждом результате."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "java",
+          "code": "try {\n    differ.compare(\n        List.of(new Column(\"x\", \"int\", false), new Column(\"x\", \"int\", false)),\n        List.of()\n    );\n} catch (IllegalArgumentException failure) {\n    System.out.println(failure.getMessage());\n}\ntry {\n    differ.compare(List.of(), List.of(new Column(null, \"int\", false)));\n} catch (NullPointerException failure) {\n    System.out.println(failure.getMessage());\n}\nvar insensitive = ModelDiffer.<Column, String>of(\n    Column::key, String.CASE_INSENSITIVE_ORDER, fields\n);\ntry {\n    insensitive.compare(\n        List.of(new Column(\"a\", \"int\", false)),\n        List.of(new Column(\"A\", \"int\", false))\n    );\n} catch (IllegalArgumentException failure) {\n    System.out.println(failure.getMessage());\n}\ntry {\n    changes.changes().clear();\n} catch (UnsupportedOperationException failure) {\n    System.out.println(\"result is unmodifiable\");\n}",
+          "caption": {
+            "en": "Reuses differ, fields, and changes. These failures are intentional and handled by the example.",
+            "ru": "Использует differ, fields и changes. Ошибки намеренные и перехватываются примером."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "Duplicate key in before: x\nNull key in after\nComparator treats unequal keys as identical: a and A\nresult is unmodifiable",
+          "caption": {
+            "en": "Expected output.",
+            "ru": "Ожидаемый вывод."
+          }
+        },
+        {
+          "type": "code",
+          "language": "java",
+          "code": "var broken = ModelDiffer.<Column, String>of(\n    Column::key, Comparator.naturalOrder(),\n    List.of(Field.of(\"broken\", column -> {\n        throw new IllegalArgumentException(\"bad value\");\n    }))\n);\ntry {\n    broken.compare(\n        List.of(new Column(\"x\", \"int\", false)),\n        List.of(new Column(\"x\", \"int\", false))\n    );\n} catch (IllegalStateException failure) {\n    System.out.println(failure.getMessage());\n    System.out.println(\"cause=\" + failure.getCause().getMessage());\n}\ntry {\n    new Change<>(\"x\", ChangeType.MODIFIED,\n        new Column(\"x\", \"int\", false),\n        new Column(\"x\", \"bigint\", false),\n        List.of());\n} catch (IllegalArgumentException failure) {\n    System.out.println(failure.getMessage());\n}",
+          "caption": {
+            "en": "A failed field projection preserves its cause. Directly constructed records also validate their shape.",
+            "ru": "Ошибка извлечения поля сохраняет исходную причину. Созданные напрямую records также проверяют свою структуру."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "Cannot compare field 'broken' at key x\ncause=bad value\nInvalid change shape for MODIFIED",
+          "caption": {
+            "en": "Expected output.",
+            "ru": "Ожидаемый вывод."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Keys and models must be non-null. Keys must be stable and have a total comparator consistent with equals. Equal models do not make duplicate identities valid.",
+              "ru": "Ключи и модели не могут быть null. Ключи должны быть стабильными, а полный порядок компаратора — согласованным с equals. Равенство моделей не разрешает повторение ключа."
+            },
+            {
+              "en": "A comparator that returns zero for unequal keys is rejected when the collision is encountered, including across snapshots. The library cannot prove transitivity of an arbitrary comparator.",
+              "ru": "Если компаратор возвращает ноль для неравных ключей, обнаруженная коллизия отклоняется, в том числе между снимками. Библиотека не может доказать транзитивность произвольного компаратора."
+            },
+            {
+              "en": "Field names must be non-null, nonblank, and unique within a differ. Field extractors and equality policies must be non-null. Duplicate definitions fail before comparison starts.",
+              "ru": "Имена полей не могут быть null или пустыми и должны быть уникальны внутри differ. Функции извлечения и сравнения не могут быть null. Повторные определения отклоняются до сравнения."
+            },
+            {
+              "en": "Change validates ADDED: before null, after present, fields empty; REMOVED: before present, after null, fields empty; MODIFIED: both models present and fields nonempty. Key and type are required.",
+              "ru": "Change проверяет ADDED: before равен null, after задан, fields пуст; REMOVED: before задан, after равен null, fields пуст; MODIFIED: обе модели заданы и fields непуст. Ключ и тип обязательны."
+            },
+            {
+              "en": "For n old models, m new models, and f fields, compare costs O(n log n + m log m + min(n,m) × f) plus result construction and uses O(n + m + result size) memory. Callback and comparison costs are assumed constant.",
+              "ru": "Для n старых моделей, m новых и f полей compare требует O(n log n + m log m + min(n,m) × f) плюс создание результата и O(n + m + размер результата) памяти. Стоимость пользовательских функций и сравнения считается постоянной."
+            },
+            {
+              "en": "compareSorted costs O(n + m + min(n,m) × f) and O(f) working memory, excluding model sizes and data retained by the consumer. It does not make an unsorted source bounded-memory.",
+              "ru": "compareSorted требует O(n + m + min(n,m) × f) и O(f) рабочей памяти без учёта размера моделей и данных, сохранённых обработчиком. Неотсортированный источник от этого не становится ограниченным по памяти."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": {
+            "en": "Scope",
+            "ru": "Область ответственности"
+          },
+          "text": {
+            "en": "The library reports differences. It does not detect renames, classify backward compatibility, generate or execute database migrations, persist an audit log, serialize reports, or traverse arbitrary object graphs.",
+            "ru": "Библиотека формирует различия. Она не распознаёт переименования, не определяет обратную совместимость, не создаёт и не выполняет миграции БД, не хранит аудит, не сериализует отчёты и не обходит произвольные графы объектов."
+          }
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "title": {
+        "en": "7. Run the complete example and diagnose failures",
+        "ru": "7. Запуск полного примера и диагностика"
+      },
+      "lead": {
+        "en": "Download Example.java and save it at the repository root after building version 0.3.0. The following POSIX-shell commands use the ordinary jar, not the sources or Javadoc jar.",
+        "ru": "Скачайте Example.java и сохраните в корне репозитория после сборки версии 0.3.0. Команды для POSIX shell используют обычный jar, а не архив исходников или Javadoc."
+      },
+      "blocks": [
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "mkdir -p example-classes\njavac --release 17 -cp build/libs/model-change-set-0.3.0.jar \\\n  -d example-classes Example.java\njava -cp example-classes:build/libs/model-change-set-0.3.0.jar Example",
+          "caption": {
+            "en": "The example executes every Java scenario above. On Windows, use a semicolon instead of a colon in the runtime classpath.",
+            "ru": "Пример выполняет все Java-сценарии выше. В Windows используйте точку с запятой вместо двоеточия в classpath запуска."
+          }
+        },
+        {
+          "type": "code",
+          "language": "text",
+          "code": "All examples completed.",
+          "caption": {
+            "en": "The final line after the expected outputs from sections 2–6.",
+            "ru": "Последняя строка после ожидаемого вывода разделов 2–6."
+          }
+        },
+        {
+          "type": "code",
+          "language": "bash",
+          "code": "./gradlew clean build runExample -PtestJavaVersion=17\n./gradlew clean build runExample -PtestJavaVersion=21\n./gradlew clean build runExample -PtestJavaVersion=25\n./gradlew clean build runExample -PtestJavaVersion=27",
+          "caption": {
+            "en": "Run the library's tests and bundled schema example on each installed JDK. Compilation always targets the Java 17 API and bytecode.",
+            "ru": "Запустите тесты библиотеки и встроенный пример схемы на каждом установленном JDK. Компиляция всегда использует API и байткод Java 17."
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "package io.github.alex59.modelchanges does not exist: check that the ordinary 0.3.0 jar exists and appears on javac's classpath, or install it locally before resolving the Gradle dependency.",
+              "ru": "package io.github.alex59.modelchanges does not exist: проверьте наличие обычного jar 0.3.0 и его путь в classpath javac либо установите артефакт локально до разрешения Gradle-зависимости."
+            },
+            {
+              "en": "UnsupportedClassVersionError: check java -version and the selected jar. Version 0.3.0 targets Java 17; a Java 27-only artifact from the earlier baseline is not interchangeable.",
+              "ru": "UnsupportedClassVersionError: проверьте java -version и выбранный jar. Версия 0.3.0 рассчитана на Java 17; артефакт прежней версии с минимумом Java 27 не взаимозаменяем с ней."
+            },
+            {
+              "en": "No matching Java installation found: install the JDK requested by testJavaVersion and expose it to Gradle toolchain discovery. A JRE without javac cannot compile the project.",
+              "ru": "No matching Java installation found: установите JDK, указанный в testJavaVersion, и обеспечьте его обнаружение Gradle. JRE без javac не сможет собрать проект."
+            },
+            {
+              "en": "Duplicate key in before/after: fix the input or choose a true compound identity. Do not silently drop one model to hide a collision.",
+              "ru": "Duplicate key in before/after: исправьте входные данные или выберите настоящий составной ключ. Не удаляйте одну из моделей молча, чтобы скрыть коллизию."
+            },
+            {
+              "en": "Keys in before/after are not strictly increasing: sort by the same comparator as the differ. Discard or compensate for any partial external report before retrying.",
+              "ru": "Keys in before/after are not strictly increasing: отсортируйте данные тем же компаратором, что использует differ. Перед повтором удалите или компенсируйте частичный внешний отчёт."
+            },
+            {
+              "en": "Cannot compare field: inspect getCause(), then correct the projection, equivalence policy, or data. Exceptions from the result consumer propagate without this field wrapper.",
+              "ru": "Cannot compare field: изучите getCause(), затем исправьте функцию извлечения, правило сравнения или данные. Исключения обработчика результата передаются без этой обёртки поля."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
