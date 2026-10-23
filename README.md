@@ -22,9 +22,21 @@ I pay particular attention to **call audio quality**, so people can hear each ot
 
 ### My Open Source Libraries
 
-I'm developing libraries that make complex systems with continuous data streams easier to build. They cover file transfers, media resources and event recovery in the browser.
+I build libraries for data processing and reliable distributed applications: model comparison, queries from metadata, background jobs and reactive pipelines, alongside continuous file streaming and browser resources.
 
 <sub>Libraries are licensed under MIT.</sub>
+
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+Builds explainable JOIN plans from relational metadata. Ambiguous relationships require an explicit choice, so dynamic queries follow the intended data model.
+
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+Coordinates background tasks across workers through expiring leases. Atomic claims, heartbeats and retries support recovery; a stale worker cannot complete a task after losing its lease.
+
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+Compares model snapshots by stable keys and selected fields. Produces ordered additions, removals and field changes for schema reviews, synchronization and change reports.
+
+**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
+Composes asynchronous processing steps with bounded concurrency, timeouts and cancellation. Retries apply to the failing step; an optional Jolt adapter transforms JSON records.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
 Shared media loading and caching across components. Blob URL lifecycle management avoids repeated downloads: a resource stays available while any component needs it, then its memory is released.
@@ -59,9 +71,21 @@ SSE reconnection from the last processed event, followed by a transition to the 
 
 ### Мои Open Source библиотеки
 
-Разрабатываю библиотеки для построения сложных систем с потоковой передачей данных. Они посвящены работе с файлами и медиа, а также восстановлению событий в браузере.
+Разрабатываю библиотеки для обработки данных и надёжных распределённых приложений: сравнения моделей, запросов по метаданным, фоновых задач и реактивных цепочек. Отдельное направление — сквозная передача файлов и работа с ресурсами браузера.
 
 <sub>Библиотеки защищены лицензией MIT.</sub>
+
+**[relational-paths](https://github.com/59Alex/relational-paths)** · Java · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
+Строит объяснимый план JOIN по метаданным связей между таблицами. При неоднозначности требует явно выбрать связь, чтобы динамический запрос соответствовал смыслу модели данных.
+
+**[pg-task-lease](https://github.com/59Alex/pg-task-lease)** · Java / PostgreSQL / R2DBC · <sub><a href="https://github.com/59Alex/pg-task-lease/blob/main/LICENSE">MIT</a></sub><br>
+Распределяет фоновые задачи между воркерами с помощью аренды на ограниченное время. Атомарный захват, продление аренды и повторы помогают восстановить обработку после сбоя; старый воркер не сможет завершить задачу после потери аренды.
+
+**[model-change-set](https://github.com/59Alex/model-change-set)** · Java · <sub><a href="https://github.com/59Alex/model-change-set/blob/main/LICENSE">MIT</a></sub><br>
+Сравнивает снимки моделей по стабильным ключам и выбранным полям. Возвращает упорядоченные добавления, удаления и изменения полей для проверки схем, синхронизации и отчётов об изменениях.
+
+**[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
+Объединяет асинхронные шаги обработки с ограниченной конкурентностью, тайм-аутами и отменой. Повторяется только сбойный шаг; отдельный адаптер Jolt преобразует JSON-записи.
 
 **[browser-media-cache](https://github.com/59Alex/browser-media-cache)** · TypeScript · <sub><a href="https://github.com/59Alex/browser-media-cache/blob/main/LICENSE">MIT</a></sub><br>
 Общая загрузка и кэширование медиа для нескольких компонентов. Управление временем жизни Blob URL помогает избежать повторных загрузок: изображение остаётся доступным, пока оно нужно хотя бы одному компоненту, а затем память освобождается.
