@@ -1,8 +1,8 @@
 # Library guides / Руководства библиотек
 
-A standalone, bilingual documentation browser for model-change-set, relational-paths, pg-task-lease and reactive-pipeline-kit 0.3.0. Each guide explains capabilities through code, expected behavior and boundaries. This directory is a local preview; no site deployment is configured.
+A standalone, bilingual documentation browser for model-change-set, relational-paths, pg-task-lease and reactive-pipeline-kit 0.3.0. Each guide explains capabilities through code, expected behavior and boundaries. The public browser is served by GitHub Pages: https://59alex.github.io/59Alex/.
 
-Самостоятельный двуязычный обозреватель документации четырёх библиотек версии 0.3.0. Возможности разобраны на примерах с ожидаемым результатом и ограничениями. Сейчас это локальная версия; публикация сайта не настроена.
+Самостоятельный двуязычный обозреватель документации четырёх библиотек версии 0.3.0. Возможности разобраны на примерах с ожидаемым результатом и ограничениями. Обозреватель опубликован через GitHub Pages: https://59alex.github.io/59Alex/.
 
 ## Open / Открыть
 

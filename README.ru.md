@@ -24,6 +24,8 @@ I pay particular attention to **call audio quality**, so people can hear each ot
 
 I build libraries for data processing and reliable distributed applications: model comparison, queries from metadata, background jobs and reactive pipelines, alongside continuous file streaming and browser resources.
 
+[Read the guides · EN / RU](https://59alex.github.io/59Alex/) — capabilities, examples and usage boundaries.
+
 <sub>Libraries are licensed under MIT.</sub>
 
 **[relational-paths](https://github.com/59Alex/relational-paths)** · Java 17+ · <sub><a href="https://github.com/59Alex/relational-paths/blob/main/LICENSE">MIT</a></sub><br>
@@ -72,6 +74,8 @@ SSE reconnection from the last processed event, followed by a transition to the 
 ### Мои Open Source библиотеки
 
 Разрабатываю библиотеки для обработки данных и надёжных распределённых приложений: сравнения моделей, запросов по метаданным, фоновых задач и реактивных цепочек. Отдельное направление — сквозная передача файлов и работа с ресурсами браузера.
+
+[Руководства · EN / RU](https://59alex.github.io/59Alex/) — возможности, примеры и ограничения применения.
 
 <sub>Библиотеки защищены лицензией MIT.</sub>
 
