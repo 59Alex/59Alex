@@ -24,8 +24,6 @@ I pay particular attention to **call audio quality**, so people can hear each ot
 
 I build libraries for data processing and reliable distributed applications: model comparison, queries from metadata, background jobs and reactive pipelines, alongside continuous file streaming and browser resources.
 
-Each library’s README includes EN/RU documentation, a quick start and examples. [Browse the Markdown index](docs/README.md).
-
 <sub>Libraries are licensed under MIT.</sub>
 
 **[reactive-pipeline-kit](https://github.com/59Alex/reactive-pipeline-kit)** · Java 17+ / Project Reactor · <sub><a href="https://github.com/59Alex/reactive-pipeline-kit/blob/main/LICENSE">MIT</a></sub><br>
@@ -74,8 +72,6 @@ Compares model snapshots by stable keys and selected fields. Produces ordered ad
 ### Мои Open Source библиотеки
 
 Разрабатываю библиотеки для обработки данных и надёжных распределённых приложений: сравнения моделей, запросов по метаданным, фоновых задач и реактивных цепочек. Отдельное направление — сквозная передача файлов и работа с ресурсами браузера.
-
-В README каждой библиотеки — документация EN/RU, быстрый старт и примеры. [Оглавление Markdown-материалов](docs/README.md).
 
 <sub>Библиотеки защищены лицензией MIT.</sub>
 
